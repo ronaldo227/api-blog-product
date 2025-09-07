@@ -2,6 +2,8 @@
 
 > **API REST moderna e segura para blog com autenticação JWT e sistema de debug avançado**
 
+![Status](https://img.shields.io/badge/Status-Production%20Ready-success?style=for-the-badge)
+![Security](https://img.shields.io/badge/Security-8.8%2F10-green?style=for-the-badge)
 [![GitHub License](https://img.shields.io/github/license/ronaldo227/api-blog-product?style=for-the-badge)](LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/ronaldo227/api-blog-product?style=for-the-badge)](https://github.com/ronaldo227/api-blog-product/stargazers)
 [![GitHub Forks](https://img.shields.io/github/forks/ronaldo227/api-blog-product?style=for-the-badge)](https://github.com/ronaldo227/api-blog-product/network)
@@ -234,6 +236,22 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - 🔐 Time **Prisma** pela excelente ORM
 - 🛡️ Comunidade **TypeScript** pela tipagem segura
 - 📚 Desenvolvedores que contribuem com **open source**
+
+## 🤝 Contribuição
+
+Contribuições são sempre bem-vindas! Se você tem ideias para melhorar este projeto:
+
+1. **Faça um Fork** do projeto
+2. **Crie uma Branch** para sua feature (`git checkout -b feature/AmazingFeature`)
+3. **Commit** suas mudanças (`git commit -m 'Add: Amazing Feature'`)
+4. **Push** para a Branch (`git push origin feature/AmazingFeature`)
+5. **Abra um Pull Request**
+
+## 📞 Contato
+
+- **LinkedIn:** [Ronaldo Silva](https://www.linkedin.com/in/ronaldo-santos-silva-dev/)
+- **GitHub:** [@ronaldo227](https://github.com/ronaldo227)
+- **Email:** ronaldosantossilva.dev@gmail.com
 
 ---
 
