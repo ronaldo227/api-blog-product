@@ -1,0 +1,108 @@
+# API Blog Product - Documentação do Projeto
+
+## Visão Geral
+Projeto de API para blog de produtos usando Node.js, Express e TypeScript.
+
+## Estrutura do Projeto
+```
+api-blog-product/
+├── src/
+│   ├── controllers/     # Controladores da API
+│   ├── generated/       # Arquivos gerados automaticamente
+│   ├── libs/           # Bibliotecas personalizadas
+│   ├── main/           # Arquivos principais da aplicação
+│   ├── middlewares/    # Middlewares personalizados
+│   ├── models/         # Modelos de dados
+│   ├── routes/         # Definição de rotas
+│   └── utils/          # Utilitários e funções auxiliares
+├── server.ts           # Arquivo principal do servidor
+├── package.json        # Configurações e dependências do projeto
+└── tsconfig.json       # Configurações do TypeScript
+```
+
+## Dependências Principais
+
+### Express Framework
+- **express**: Framework web para Node.js
+- Usado para criar rotas, middlewares e gerenciar o servidor HTTP
+
+### CORS (Cross-Origin Resource Sharing)
+- **cors**: Middleware para habilitar CORS
+- Permite que a API seja acessada por diferentes domínios
+- Configuração no server.ts: `server.use(cors())`
+- Essencial para APIs que serão consumidas por aplicações frontend
+
+### Body Parser
+- **body-parser**: Middleware para parsing do corpo das requisições
+- Permite processar dados JSON e URL-encoded
+- Configurações:
+  - `bodyParser.json()`: Para requisições JSON
+  - `bodyParser.urlencoded({ extended: true })`: Para formulários
+
+## Dependências de Desenvolvimento (TypeScript)
+- **@types/express**: Tipos TypeScript para Express
+- **@types/cors**: Tipos TypeScript para CORS
+- **@types/node**: Tipos TypeScript para Node.js
+- **typescript**: Compilador TypeScript
+- **ts-node**: Executa TypeScript diretamente sem compilação
+
+## Configuração do Servidor
+O arquivo `server.ts` contém:
+1. Importação das dependências (express, cors, body-parser)
+2. Criação da instância do Express
+3. Configuração de middlewares:
+   - CORS habilitado para todas as rotas
+   - Parser JSON habilitado
+   - Parser URL-encoded habilitado
+   - Servir arquivos estáticos da pasta 'public'
+4. Rotas comentadas para futuras implementações:
+   - `/api/auth` - Autenticação
+   - `/api/admin` - Área administrativa
+   - `/api` - Rotas principais
+5. Servidor rodando na porta 4444
+
+## Scripts Disponíveis
+- `npm run dev`: Executa o servidor em modo desenvolvimento (usando ts-node)
+- `npm run build`: Compila o TypeScript para JavaScript
+- `npm start`: Executa o servidor compilado
+- `npm test`: Script de teste (ainda não implementado)
+
+## Como Executar
+1. Instalar dependências: `npm install`
+2. Executar em desenvolvimento: `npm run dev`
+3. Ou compilar e executar: `npm run build && npm start`
+
+## Próximos Passos
+1. Implementar rotas de autenticação em `/src/routes/`
+2. Criar controladores em `/src/controllers/`
+3. Definir modelos de dados em `/src/models/`
+4. Configurar middlewares de autenticação em `/src/middlewares/`
+5. Adicionar validações em `/src/utils/`
+
+## Notas Importantes
+- O CORS está configurado para aceitar requisições de qualquer origem
+- Para produção, considere configurar o CORS com origens específicas
+- Body parser está configurado para aceitar JSON e formulários
+- Arquivos estáticos serão servidos da pasta 'public' (ainda não criada)
+
+
+
+
+import { z } from 'zod';
+
+// Schema para registro de usuário
+const registerSchema = z.object({
+  name: z.string().min(2, "Nome deve ter pelo menos 2 caracteres"),
+  email: z.string().email("Email inválido"),
+  password: z.string().min(6, "Senha deve ter pelo menos 6 caracteres")
+});
+
+// Schema para login
+const loginSchema = z.object({
+  email: z.string().email("Email inválido"),
+  password: z.string().min(1, "Senha é obrigatória")
+});
+
+// Inferir tipos TypeScript automaticamente
+type RegisterData = z.infer<typeof registerSchema>;
+type LoginData = z.infer<typeof loginSchema>;
