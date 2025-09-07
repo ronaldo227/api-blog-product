@@ -227,8 +227,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 **Ronaldo Silva**
 - 🌐 GitHub: [@ronaldo227](https://github.com/ronaldo227)
-- 📧 Email: devronaldosilva893@gmail.com
-- 💼 LinkedIn: [Conecte-se comigo](https://www.linkedin.com/in/ronaldo-silva-4ba80851)
+-  LinkedIn: [Conecte-se comigo](https://www.linkedin.com/in/ronaldo-silva-4ba80851)
 
 ## 🙏 Agradecimentos
 
@@ -249,9 +248,7 @@ Contribuições são sempre bem-vindas! Se você tem ideias para melhorar este p
 
 ## 📞 Contato
 
-- **LinkedIn:** [Ronaldo Silva](https://www.linkedin.com/in/ronaldo-santos-silva-dev/)
 - **GitHub:** [@ronaldo227](https://github.com/ronaldo227)
-- **Email:** ronaldosantossilva.dev@gmail.com
 
 ---
 
