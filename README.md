@@ -2,11 +2,20 @@
 
 > **API REST moderna e segura para blog com autenticação JWT e sistema de debug avançado**
 
+[![GitHub License](https://img.shields.io/github/license/ronaldo227/api-blog-product?style=for-the-badge)](LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/ronaldo227/api-blog-product?style=for-the-badge)](https://github.com/ronaldo227/api-blog-product/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/ronaldo227/api-blog-product?style=for-the-badge)](https://github.com/ronaldo227/api-blog-product/network)
+[![GitHub Issues](https://img.shields.io/github/issues/ronaldo227/api-blog-product?style=for-the-badge)](https://github.com/ronaldo227/api-blog-product/issues)
+
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)](https://prisma.io/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://postgresql.org/)
+
+[![Security Score](https://img.shields.io/badge/Security_Score-8.8/10-brightgreen?style=for-the-badge&logo=shield)](SECURITY_REPORT.md)
+[![Vulnerabilities](https://img.shields.io/badge/Vulnerabilities-0-brightgreen?style=for-the-badge&logo=security)](SECURITY_REPORT.md)
+[![Production Ready](https://img.shields.io/badge/Production-Ready-brightgreen?style=for-the-badge&logo=checkmarx)](https://github.com/ronaldo227/api-blog-product)
 
 ## ✨ Funcionalidades
 
@@ -160,16 +169,80 @@ Sistema automático de sincronização configurado:
 - ✅ Smart commits
 - ✅ Sync na barra de status
 
-## 📝 Licença
+## 🤝 Contribuindo
+
+Contribuições são sempre bem-vindas! Veja como você pode ajudar:
+
+### **🐛 Reportar Bugs**
+1. Verifique se o bug já foi reportado nas [Issues](https://github.com/ronaldo227/api-blog-product/issues)
+2. Se não, crie uma nova issue com:
+   - Descrição detalhada do problema
+   - Passos para reproduzir
+   - Ambiente (OS, Node.js version, etc.)
+   - Screenshots se aplicável
+
+### **💡 Sugerir Melhorias**
+1. Crie uma issue com label `enhancement`
+2. Descreva a funcionalidade sugerida
+3. Explique por que seria útil
+4. Proponha uma implementação se possível
+
+### **� Contribuir com Código**
+1. Faça fork do repositório
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+### **📋 Checklist para PRs**
+- [ ] Código segue o padrão do projeto
+- [ ] Testes passando (quando implementados)
+- [ ] Documentação atualizada
+- [ ] Sem vulnerabilidades de segurança
+- [ ] Debug logging implementado (se aplicável)
+
+## ⭐ Apoie o Projeto
+
+Se este projeto te ajudou, considere:
+- ⭐ Dar uma **estrela** no repositório
+- 🐛 Reportar **bugs** ou sugerir melhorias
+- 🔄 Fazer **fork** e contribuir
+- 📢 **Compartilhar** com outros desenvolvedores
+
+## �📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+### **Resumo da Licença MIT:**
+- ✅ **Uso comercial** permitido
+- ✅ **Modificação** permitida  
+- ✅ **Distribuição** permitida
+- ✅ **Uso privado** permitido
+- ❌ **Responsabilidade** do autor
+- ❌ **Garantia** fornecida
 
 ## 👨‍💻 Autor
 
 **Ronaldo Silva**
-- GitHub: [@ronaldo227](https://github.com/ronaldo227)
-- Email: devronaldosilva893@gmail.com
+- 🌐 GitHub: [@ronaldo227](https://github.com/ronaldo227)
+- 📧 Email: devronaldosilva893@gmail.com
+- 💼 LinkedIn: [Conecte-se comigo](https://linkedin.com/in/ronaldo227)
+
+## 🙏 Agradecimentos
+
+- 💻 Comunidade **Node.js** pela base sólida
+- 🔐 Time **Prisma** pela excelente ORM
+- 🛡️ Comunidade **TypeScript** pela tipagem segura
+- 📚 Desenvolvedores que contribuem com **open source**
 
 ---
 
-⭐ **Se este projeto te ajudou, deixe uma estrela!** ⭐
+<div align="center">
+
+**⭐ Se este projeto te ajudou, deixe uma estrela! ⭐**
+
+[![Star this repository](https://img.shields.io/github/stars/ronaldo227/api-blog-product?style=social)](https://github.com/ronaldo227/api-blog-product/stargazers)
+
+*Desenvolvido com ❤️ por [Ronaldo Silva](https://github.com/ronaldo227)*
+
+</div>
