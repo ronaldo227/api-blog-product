@@ -226,7 +226,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 **Ronaldo Silva**
 - 🌐 GitHub: [@ronaldo227](https://github.com/ronaldo227)
 - 📧 Email: devronaldosilva893@gmail.com
-- 💼 LinkedIn: [Conecte-se comigo](https://linkedin.com/in/ronaldo227)
+- 💼 LinkedIn: [Conecte-se comigo](https://www.linkedin.com/in/ronaldo-silva-4ba80851)
 
 ## 🙏 Agradecimentos
 
