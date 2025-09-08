@@ -46,23 +46,10 @@ export const verifyRequest = async (req: Request): Promise<JWTPayload | false> =
     const token = match[1];
 
     try {
-        console.log('🔍 SUPER DEBUG VERIFY REQUEST - Calling verifyJWT...');
         const payload = verifyJWT(token) as JWTPayload; // usa a função do src/libs/jwt.ts
-        
-        console.log('🔍 SUPER DEBUG VERIFY REQUEST - JWT VERIFIED SUCCESS:', {
-            payload: {
-                id: payload.id,
-                email: payload.email,
-                name: payload.name
-            }
-        });
         
         return payload;
     } catch (err) {
-        console.log('🔍 SUPER DEBUG VERIFY REQUEST - JWT VERIFICATION FAILED:', {
-            error: err instanceof Error ? err.message : err,
-            stack: err instanceof Error ? err.stack : 'No stack trace'
-        });
         return false;
     }
 };

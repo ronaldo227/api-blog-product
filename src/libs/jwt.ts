@@ -44,21 +44,8 @@ export const verifyJWT = (token: string) => {
             issuer: 'api-blog-product',
             audience: 'api-users'
         });
-
-        console.log('🔓 SUPER DEBUG VERIFY JWT - SUCCESS:', {
-            resultType: typeof result,
-            resultKeys: typeof result === 'object' && result ? Object.keys(result) : 'No keys',
-            payload: result
-        });
-
         return result;
     } catch (error) {
-        console.log('🔓 SUPER DEBUG VERIFY JWT - ERROR:', {
-            error: error instanceof Error ? error.message : error,
-            errorName: error instanceof Error ? error.name : 'Unknown error',
-            stack: error instanceof Error ? error.stack : 'No stack trace'
-        });
-        
         // 🔒 SEGURANÇA: Não vazar informações do erro
         throw new Error('Invalid token');
     }
