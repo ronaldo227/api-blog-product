@@ -16,16 +16,6 @@ if (SECRET.length < 32) {
 
 // Criar token JWT com configurações de segurança
 export const createJWT = (payload: object) => {
-    console.log('🔐 SUPER DEBUG CREATE JWT - START:', {
-        timestamp: new Date().toISOString(),
-        payload,
-        secretLength: SECRET.length,
-        secretPreview: `${SECRET.substring(0, 10)}...`,
-        algorithm: 'HS256',
-        expiresIn: '1h',
-        issuer: 'api-blog-product',
-        audience: 'api-users'
-    });
 
     try {
         const token = jwt.sign(
@@ -39,35 +29,14 @@ export const createJWT = (payload: object) => {
             }
         );
 
-        console.log('🔐 SUPER DEBUG CREATE JWT - SUCCESS:', {
-            tokenGenerated: !!token,
-            tokenLength: token.length,
-            tokenParts: token.split('.').length,
-            tokenPreview: `${token.substring(0, 30)}...`
-        });
-
         return token;
     } catch (error) {
-        console.log('🔐 SUPER DEBUG CREATE JWT - ERROR:', {
-            error: error instanceof Error ? error.message : error,
-            stack: error instanceof Error ? error.stack : 'No stack trace'
-        });
         throw error;
     }
 };
 
 // Verificar token JWT com validações de segurança
 export const verifyJWT = (token: string) => {
-    console.log('🔓 SUPER DEBUG VERIFY JWT - START:', {
-        timestamp: new Date().toISOString(),
-        tokenLength: token.length,
-        tokenParts: token.split('.').length,
-        tokenPreview: `${token.substring(0, 30)}...`,
-        secretLength: SECRET.length,
-        algorithm: 'HS256',
-        issuer: 'api-blog-product',
-        audience: 'api-users'
-    });
 
     try {
         const result = jwt.verify(token, SECRET, {
