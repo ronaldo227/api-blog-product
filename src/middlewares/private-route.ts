@@ -1,4 +1,10 @@
 /**
+ * Middleware privateRoute:
+ * - Injeta usuário autenticado em req.userId.
+ * - Retorna 401 se token JWT for inválido ou ausente.
+ * - Atenção: mantenha o JWT_KEY seguro e use HTTPS.
+ */
+/**
  * Middleware privateRoute atualizado:
  * - Injeta o usuário autenticado em req.userId (compatível com ExtendedRequest e controllers/auth).
  * - Garante que rotas protegidas só funcionam com token JWT válido.
