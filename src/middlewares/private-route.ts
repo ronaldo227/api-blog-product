@@ -1,3 +1,9 @@
+/**
+ * Middleware privateRoute atualizado:
+ * - Injeta o usuário autenticado em req.userId (compatível com ExtendedRequest e controllers/auth).
+ * - Garante que rotas protegidas só funcionam com token JWT válido.
+ * - Para evitar erro 'Content-Type deve ser application/json', sempre envie o header correto nas requisições.
+ */
 //  Arquivo: src/middlewares/private-route.ts
 // Middleware que protege rotas privadas
 // Aqui usamos a função verifyRequest do src/services/auth.ts
@@ -24,7 +30,7 @@ export const privateRoute = async (
 
     try {
         const user = await verifyRequest(req); // chama verifyRequest
-        
+
 
         if (!user) {
             res.status(401).json({
@@ -34,13 +40,13 @@ export const privateRoute = async (
             return;
         }
 
-        // injeta user no request com tipagem correta
-        (req as ExtendedRequest).user = user as JWTPayload;
-        
-        
+        // injeta user no request com tipagem correta (compatível com ExtendedRequest)
+        (req as any).userId = user as JWTPayload;
+
+
         next();
     } catch (error) {
-        
+
         res.status(401).json({
             error: "Unauthorized",
             message: "Erro na validação do token"

@@ -41,8 +41,7 @@ export const signin: RequestHandler = async (req, res) => {
 
     if (!data.success) {
         console.log('[DEBUG signin] Validation error:', data.error.flatten().fieldErrors);
-        res.json({ error: data.error.flatten().fieldErrors });
-        return;
+        return res.status(401).json({ error: 'Acesso negado', details: data.error.flatten().fieldErrors });
     }
 
     const validatedData = data.data;
@@ -51,8 +50,7 @@ export const signin: RequestHandler = async (req, res) => {
     console.log('[DEBUG signin] User criado:', user);
 
     if (!user) {
-        res.json({ error: 'erro ao criar usuario' });
-        return;
+        return res.status(401).json({ error: 'Acesso negado' });
     }
 
     const token = createToken(user);
@@ -79,8 +77,7 @@ export const signup: RequestHandler = async (req, res) => {
 
     if (!data.success) {
         console.log('[DEBUG signup] Validation error:', data.error.flatten().fieldErrors);
-        res.json({ error: data.error.flatten().fieldErrors });
-        return;
+        return res.status(401).json({ error: 'Acesso negado', details: data.error.flatten().fieldErrors });
     }
 
     const validatedData = data.data;
@@ -89,8 +86,7 @@ export const signup: RequestHandler = async (req, res) => {
     console.log('[DEBUG signup] User verificado:', user);
 
     if (!user) {
-        res.json({ error: 'credenciais inválidas' });
-        return;
+        return res.status(401).json({ error: 'Acesso negado' });
     }
 
     const token = createToken(user);
@@ -114,7 +110,7 @@ export const signup: RequestHandler = async (req, res) => {
 export const validate = (req: ExtendedRequest, res: Response) => {
     console.log('[DEBUG validate] req.userId:', req.userId);
     if (!req.userId) {
-        return res.status(401).json({ valid: false, error: "Token inválido ou ausente" });
+        return res.status(401).json({ error: 'Acesso negado' });
     }
     console.log('[DEBUG validate] Usuário autenticado:', {
         id: req.userId.id,
