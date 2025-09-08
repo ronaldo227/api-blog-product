@@ -1,3 +1,7 @@
+/**
+ * ATENÇÃO: Este arquivo contém logs temporários para depuração.
+ * Quando terminar de depurar, remova todos os console.log de debug para manter o código limpo e profissional.
+ */
 import { RequestHandler, Response } from "express";
 import { z } from 'zod';
 import { createUser, verifyUser } from "../services/user";
