@@ -14,7 +14,7 @@ if git diff --quiet && git diff --staged --quiet; then
     exit 0
 fi
 
-# Mostrar status
+# Mostrar statusP
 echo "📊 Alterações detectadas:"
 git status --short
 echo ""

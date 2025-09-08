@@ -1,6 +1,6 @@
 {
   "name": "api-blog-product",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,9 @@
     "debug:modern": "tsx --inspect=9229 server-modern.ts",
     "lint": "tsc --noEmit",
     "security:check": "./security-test.sh",
+    "security:snyk": "snyk test",
+    "security:snyk:report": "snyk test --json > reports/snyk-security-report.json",
+    "security:snyk:monitor": "snyk monitor",
     "logs": "npm run logs:dev",
     "logs:dev": "DEBUG=api:* npm run dev:modern",
     "logs:info": "LOG_LEVEL=info npm run start:modern",
@@ -58,7 +61,9 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.3.1",
     "debug": "^4.4.1",
+    "eslint-plugin-security": "^3.0.1",
     "prisma": "^6.15.0",
+    "snyk": "^1.1299.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.5",
     "typescript": "^5.9.2"
