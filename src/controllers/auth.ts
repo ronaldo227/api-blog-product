@@ -1,7 +1,8 @@
-import { RequestHandler } from "express";
+import { RequestHandler, Response } from "express";
 import { z } from 'zod';
 import { createUser, verifyUser } from "../services/user";
 import { createToken } from "../services/auth";
+import { ExtendedRequest } from "@/types/extended-resquest";
 
 const signinSchema = z.object({
     name: z.string()
@@ -31,23 +32,28 @@ const signupSchema = z.object({
 
 // Controlador para registrar um novo usuário
 export const signin: RequestHandler = async (req, res) => {
+    console.log('[DEBUG signin] Request body:', req.body);
     const data = signinSchema.safeParse(req.body);
 
     if (!data.success) {
-    res.json({ error: data.error.flatten().fieldErrors });
+        console.log('[DEBUG signin] Validation error:', data.error.flatten().fieldErrors);
+        res.json({ error: data.error.flatten().fieldErrors });
         return;
     }
 
     const validatedData = data.data;
+    console.log('[DEBUG signin] Validated data:', validatedData);
     const user = await createUser(validatedData);
-    
+    console.log('[DEBUG signin] User criado:', user);
+
     if (!user) {
         res.json({ error: 'erro ao criar usuario' });
         return;
     }
 
     const token = createToken(user);
-    
+    console.log('[DEBUG signin] Token gerado:', token);
+
     const response = {
         user: {
             id: user.id,
@@ -64,23 +70,28 @@ export const signin: RequestHandler = async (req, res) => {
 
 // Controlador para fazer login
 export const signup: RequestHandler = async (req, res) => {
+    console.log('[DEBUG signup] Request body:', req.body);
     const data = signupSchema.safeParse(req.body);
 
     if (!data.success) {
-    res.json({ error: data.error.flatten().fieldErrors });
+        console.log('[DEBUG signup] Validation error:', data.error.flatten().fieldErrors);
+        res.json({ error: data.error.flatten().fieldErrors });
         return;
     }
 
     const validatedData = data.data;
+    console.log('[DEBUG signup] Validated data:', validatedData);
     const user = await verifyUser({ email: validatedData.email, password: validatedData.password });
-    
+    console.log('[DEBUG signup] User verificado:', user);
+
     if (!user) {
         res.json({ error: 'credenciais inválidas' });
         return;
     }
 
     const token = createToken(user);
-    
+    console.log('[DEBUG signup] Token gerado:', token);
+
     const response = {
         user: {
             id: user.id,
@@ -96,18 +107,22 @@ export const signup: RequestHandler = async (req, res) => {
 };
 
 // Controlador para validar token
-export const validate: RequestHandler = async (req, res) => {
-    // O middleware privateRoute já validou o token
-    // O usuário estará disponível em req.user
-    const authenticatedReq = req as any; // Cast temporário
-    const user = authenticatedReq.user;
-    const response = {
+export const validate = (req: ExtendedRequest, res: Response) => {
+    console.log('[DEBUG validate] req.userId:', req.userId);
+    if (!req.userId) {
+        return res.status(401).json({ valid: false, error: "Token inválido ou ausente" });
+    }
+    console.log('[DEBUG validate] Usuário autenticado:', {
+        id: req.userId.id,
+        name: req.userId.name,
+        email: req.userId.email
+    });
+    res.json({
         valid: true,
         user: {
-            id: user.id,
-            name: user.name,
-            email: user.email
+            id: req.userId.id,
+            name: req.userId.name,
+            email: req.userId.email
         }
-    };
-    res.json(response);
-};   
+    });
+};
