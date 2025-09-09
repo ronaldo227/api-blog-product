@@ -46,10 +46,10 @@ Sistema completo e moderno com:
 
 # 🆕 Últimas Melhorias (08/09/2025)
 
-- Todos os logs e comentários "SUPER DEBUG" removidos do código.
-- Código limpo, sem poluição visual de debug.
-- Segurança revisada: dependências auditadas, sem vulnerabilidades conhecidas.
-- Estrutura e documentação atualizadas para produção.
+- Autenticação segura e validação no addPost.
+- Upload robusto com Multer (apenas imagens, limite 5MB, pasta uploads/temp).
+- Código limpo e sem poluição visual.
+- Segurança e documentação revisadas.
 # 🚀 API Blog Product
 
 > **API REST moderna e segura para blog com autenticação JWT e sistema de debug avançado**
