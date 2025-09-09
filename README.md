@@ -18,7 +18,7 @@ Sistema completo com:
 - CORS configurado adequadamente
 
 🔗 **Repositório:** [github.com/ronaldo227/api-blog-product](https://github.com/ronaldo227/api-blog-product)
-💼 Este projeto demonstra minha capacidade de desenvolver APIs seguras e escaláveis seguindo as melhores práticas da indústria.
+💼 Projeto focado em APIs seguras, escaláveis e alinhadas com as melhores práticas da indústria.
 
 ---
 
@@ -325,11 +325,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - ❌ **Responsabilidade** do autor
 - ❌ **Garantia** fornecida
 
-## 👨‍💻 Autor
 
-**Ronaldo Silva**
-- 🌐 GitHub: [@ronaldo227](https://github.com/ronaldo227)
--  LinkedIn: [Conecte-se comigo](https://www.linkedin.com/in/ronaldo-silva-4ba80851)
 
 ## 🙏 Agradecimentos
 
@@ -360,6 +356,6 @@ Contribuições são sempre bem-vindas! Se você tem ideias para melhorar este p
 
 [![Star this repository](https://img.shields.io/github/stars/ronaldo227/api-blog-product?style=social)](https://github.com/ronaldo227/api-blog-product/stargazers)
 
-*Desenvolvido com ❤️ por [Ronaldo Silva](https://github.com/ronaldo227)*
+
 
 </div>
