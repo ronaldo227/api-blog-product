@@ -1,5 +1,4 @@
 
-
 # API Blog Product
 
 ![Visitas](https://komarev.com/ghpvc/?username=ronaldo227&label=Visualizações&color=0e75b6&style=flat)
@@ -51,7 +50,7 @@ npm run dev
 ---
 
 
-## 🛠️ Melhorias Detalhadas — 09/09/2025
+# 🛠️ Melhorias Detalhadas — 09/09/2025
 
 ### Controller de Criação de Post (`admin.ts`)
 
