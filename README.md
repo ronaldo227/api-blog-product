@@ -1,6 +1,15 @@
-# ![Visitas](https://komarev.com/ghpvc/?username=ronaldo227&label=Visualizações&color=0e75b6&style=flat)
+
 
 # API Blog Product
+
+![Visitas](https://komarev.com/ghpvc/?username=ronaldo227&label=Visualizações&color=0e75b6&style=flat)
+
+<br>
+
+Este repositório está em evolução contínua, com aprimoramentos frequentes, refatorações estratégicas e novas funcionalidades implementadas de acordo com as melhores práticas do mercado. Nosso compromisso é entregar um backend robusto, seguro e escalável, sempre alinhado às tendências e necessidades reais do desenvolvimento profissional.
+
+---
+
 
 Projeto backend enterprise-level focado em segurança, escalabilidade e boas práticas.
 
@@ -69,7 +78,6 @@ npm run dev
 
 ---
 
-```
 
 ---
 
