@@ -38,6 +38,37 @@ npm install
 cp .env.example .env # Configure suas variáveis
 npx prisma migrate dev
 npm run dev
+
+---
+
+
+## 🛠️ Melhorias Detalhadas — 09/09/2025
+
+### Controller de Criação de Post (`admin.ts`)
+
+- **Slug Inteligente e Único:**
+	- Implementação de geração automática de slug limpo, sem acentos e caracteres especiais, garantindo URLs amigáveis e únicas para cada post.
+	- Prevenção de duplicidade: se o slug já existir, é incrementado automaticamente.
+
+- **Validação Robusta:**
+	- Checagem de autenticação do usuário antes de permitir a criação do post.
+	- Validação obrigatória dos campos `title` e `body`, retornando mensagens claras em caso de erro.
+
+- **Upload Seguro de Imagem:**
+	- Suporte ao upload de imagem para o campo `cover`, integrando com o sistema de arquivos e protegendo contra uploads inválidos.
+
+- **Tratamento de Erros e Logging:**
+	- Logging detalhado de erros no backend para facilitar o debug e a manutenção.
+	- Respostas HTTP padronizadas para cada cenário (401, 400, 201, 500).
+
+- **Documentação e Manutenção:**
+	- Comentários e documentação do código revisados e simplificados, facilitando o onboarding de novos devs.
+	- Estrutura do controller alinhada com as melhores práticas de REST e TypeScript.
+
+> _Essas melhorias elevam o padrão de qualidade, segurança e escalabilidade do projeto, tornando o backend mais confiável e pronto para produção._
+
+---
+
 ```
 
 ---
