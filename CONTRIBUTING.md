@@ -196,8 +196,6 @@ Antes de submeter um PR, verifique:
 ## 💬 Comunicação
 
 ### **Onde Buscar Ajuda:**
-- 📋 [Issues](https://github.com/ronaldo227/api-blog-product/issues) - Para bugs e features
-- 📧 Email: devronaldosilva893@gmail.com - Para questões diretas
 - 💼 LinkedIn: [Ronaldo Silva](https://www.linkedin.com/in/ronaldo-silva-4ba80851) - Para networking
 
 ### **Tempo de Resposta:**
@@ -215,7 +213,6 @@ Contribuidores serão reconhecidos:
 ## 📚 Recursos Úteis
 
 - [Documentação TypeScript](https://www.typescriptlang.org/docs/)
-- [Express.js Guide](https://expressjs.com/en/guide/)
 - [Prisma Documentation](https://www.prisma.io/docs/)
 - [OWASP Security Guide](https://owasp.org/www-project-top-ten/)
 
