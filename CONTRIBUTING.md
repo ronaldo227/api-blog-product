@@ -217,7 +217,6 @@ Contribuidores serão reconhecidos:
 - [Documentação TypeScript](https://www.typescriptlang.org/docs/)
 - [Express.js Guide](https://expressjs.com/en/guide/)
 - [Prisma Documentation](https://www.prisma.io/docs/)
-- [JWT Best Practices](https://tools.ietf.org/html/rfc7519)
 - [OWASP Security Guide](https://owasp.org/www-project-top-ten/)
 
 ---
