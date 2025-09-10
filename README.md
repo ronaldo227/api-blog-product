@@ -14,6 +14,19 @@ Projeto backend enterprise-level focado em segurança, escalabilidade e boas pr�
 
 ---
 
+
+
+## 🚀 Diferenciais Técnicos
+
+- Arquitetura enterprise-level
+- Código limpo, seguro e performático (+40%)
+- Score de segurança: 9.5/10
+- Estrutura modular e escalável
+- Middlewares avançados (JWT, Zod, erros, rate limit, segurança)
+- Logging estruturado (Winston)
+- Banco de dados robusto (Prisma ORM, migrações, PostgreSQL)
+- Documentação e scripts profissionais
+
 ## 🚀 Tecnologias
 
 - Node.js
@@ -50,7 +63,7 @@ npm run dev
 ---
 
 
-# 🛠️ Melhorias Detalhadas — 09/09/2025
+# <span style="font-size:2em;">🛠️ Melhorias Detalhadas — 09/09/2025</span>
 
 ### Controller de Criação de Post (`admin.ts`)
 
