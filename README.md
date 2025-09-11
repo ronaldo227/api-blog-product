@@ -3,9 +3,16 @@
 
 ![Visitas](https://komarev.com/ghpvc/?username=ronaldo227&label=Visualizações&color=0e75b6&style=flat)
 
-<br>
 
-Este repositório está em evolução contínua, com aprimoramentos frequentes, refatorações estratégicas e novas funcionalidades implementadas de acordo com as melhores práticas do mercado. Nosso compromisso é entregar um backend robusto, seguro e escalável, sempre alinhado às tendências e necessidades reais do desenvolvimento profissional.
+> ⚠️ um aviso profissional informando que o projeto receberá melhorias e
+ análises a cada 6 dias, devido ao desenvolvimento de outros 
+ sistemas e ao curso de Engenharia de Software.
+
+
+Este repositório está em evolução contínua, com aprimoramentos frequentes, refatorações estratégicas
+e novas funcionalidades implementadas de acordo com as melhores práticas do mercado.
+Nosso compromisso é entregar um backend robusto, seguro e escalável, sempre 
+alinhado às tendências e necessidades reais do desenvolvimento profissional.
 
 ---
 
