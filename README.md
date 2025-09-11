@@ -106,6 +106,10 @@ Veja `.env.example` para todos os parâmetros necessários.
 
 ---
 
+## ✅ Status de Segurança
+
+Projeto analisado com [Snyk](https://snyk.io/) em 11/09/2025: **nenhuma vulnerabilidade conhecida encontrada nas dependências**.
+
 ## 🛡️ Segurança
 
 - JWT com expiração e assinatura forte
