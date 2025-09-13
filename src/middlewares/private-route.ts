@@ -1,4 +1,9 @@
 /**
+ * MIT License
+ * Copyright (c) 2025 Ronaldo Silva
+ * See LICENSE file in the project root for full license information.
+ */
+/**
  * Middleware privateRoute:
  * - Injeta usuário autenticado em req.userId.
  * - Retorna 401 se token JWT for inválido ou ausente.

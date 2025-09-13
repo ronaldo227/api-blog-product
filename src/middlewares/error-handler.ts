@@ -1,3 +1,8 @@
+/**
+ * MIT License
+ * Copyright (c) 2025 Ronaldo Silva
+ * See LICENSE file in the project root for full license information.
+ */
 import { Request, Response, NextFunction } from 'express';
 import { AppLogger } from '../utils/logger-modern';
 
