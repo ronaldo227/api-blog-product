@@ -106,9 +106,21 @@ Veja `.env.example` para todos os parâmetros necessários.
 
 ---
 
+
 ## ✅ Status de Segurança
 
-Projeto analisado com [Snyk](https://snyk.io/) em 11/09/2025: **nenhuma vulnerabilidade conhecida encontrada nas dependências**.
+O projeto não possui mais o Snyk como dependência obrigatória. O uso do Snyk para análise de vulnerabilidades agora é opcional e individual:
+
+- Caso deseje, instale o Snyk apenas para seu ambiente com:
+	```bash
+	npm install -g snyk
+	```
+- Ou use localmente sem afetar o projeto:
+	```bash
+	npm install snyk --no-save
+	```
+
+Assim, a análise de segurança pode ser feita por quem desejar, sem impactar outros usuários do repositório.
 
 ## 🛡️ Segurança
 
