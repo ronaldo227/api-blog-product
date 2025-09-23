@@ -1,0 +1,56 @@
+# Resumo Arquitetural e Funcional da API Blog Product
+
+## Visão Geral
+Esta aplicação é um backend enterprise-level para um sistema de blog/produtos, 
+focado em segurança, escalabilidade e boas práticas de engenharia de software. 
+Utiliza Node.js, TypeScript, Express e Prisma ORM com PostgreSQL.
+
+## Estrutura de Pastas
+- **src/controllers/**: Controladores dos endpoints HTTP. Recebem requisições, validam 
+ dados e delegam para os serviços.
+- **src/services/**: Lógica de negócio. Integra controladores, banco de dados e regras 
+ específicas do domínio.
+- **src/routes/**: Define e agrupa as rotas da API por domínio (ex: auth, admin, main).
+- **src/middlewares/**: Middlewares Express para autenticação (JWT), segurança, tratamento de erros, 
+ rate limiting, etc.
+- **src/libs/**: Bibliotecas customizadas (JWT, integração Prisma, upload de arquivos).
+- **src/utils/**: Funções utilitárias, logger estruturado (Winston), helpers.
+- **src/config/**: Configurações centralizadas e validação de variáveis de ambiente.
+- **src/types/**: Tipos TypeScript customizados para garantir tipagem forte.
+- **prisma/**: Schema do banco, migrações e seeds do Prisma ORM.
+
+## Fluxos e Convenções
+- **Autenticação JWT**: Implementada via middlewares e libs customizadas.
+- **Erros**: Tratamento centralizado em `middlewares/error-handler.ts`.
+- **Logging**: Estruturado, usando Winston (`utils/logger-modern.ts`).
+- **Segurança**: Uso de Helmet, CORS, rate limiting, bcrypt para senhas.
+- **Migrations**: `npx prisma migrate dev` para evoluir o banco.
+- **Seed**: `npx prisma db seed` para popular dados iniciais.
+- **Testes**: Scripts em `test-scripts.sh` e possíveis comandos npm.
+
+## Como Funciona o Fluxo de uma Requisição
+1. **Rota** recebe a requisição e encaminha para o controlador.
+2. **Controlador** valida/parsa dados e chama o serviço correspondente.
+3. **Serviço** executa a lógica de negócio e acessa o banco via Prisma.
+4. **Middlewares** podem atuar em qualquer etapa (ex: autenticação, erros).
+5. **Resposta** é devolvida ao cliente, sempre tipada e validada.
+
+## Exemplos de Expansão
+- Para criar um novo domínio (ex: produtos):
+  1. Crie arquivos em controllers, services e routes.
+  2. Importe a rota em `routes/main.ts`.
+- Para adicionar um middleware: implemente em `middlewares/` e registre em `server.ts`.
+
+## Diferenciais
+- Estrutura modular e escalável
+- Segurança avançada (score 9.5/10)
+- Código limpo e performático
+- Documentação e scripts profissionais
+
+---
+
+**Para detalhes aprofundados de cada camada, consulte os arquivos `README.md` presentes 
+em cada subpasta de `src/` (ex: `src/controllers/README.md`, `src/services/README.md`, 
+etc.). Para entender as práticas de segurança e conformidade adotadas, leia 
+também os documentos `OWASP_COMPLIANCE.md` (boas práticas e requisitos OWASP aplicados) 
+e `SECURITY_REPORT.md` (relatórios e análises de segurança) localizados na raiz do projeto.**
