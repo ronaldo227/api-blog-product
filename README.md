@@ -75,7 +75,8 @@ npm run dev
 ### Controller de Criação de Post (`admin.ts`)
 
 - **Slug Inteligente e Único:**
-	- Implementação de geração automática de slug limpo, sem acentos e caracteres especiais, garantindo URLs amigáveis e únicas para cada post.
+	- Implementação de geração automática de slug limpo, sem acentos e caracteres
+ especiais, garantindo URLs amigáveis e únicas para cada post.
 	- Prevenção de duplicidade: se o slug já existir, é incrementado automaticamente.
 
 - **Validação Robusta:**
@@ -93,7 +94,8 @@ npm run dev
 	- Comentários e documentação do código revisados e simplificados, facilitando o onboarding de novos devs.
 	- Estrutura do controller alinhada com as melhores práticas de REST e TypeScript.
 
-> _Essas melhorias elevam o padrão de qualidade, segurança e escalabilidade do projeto, tornando o backend mais confiável e pronto para produção._
+> _Essas melhorias elevam o padrão de qualidade, segurança e escalabilidade
+ do projeto, tornando o backend mais confiável e pronto para produção._
 
 ---
 
@@ -109,7 +111,8 @@ Veja `.env.example` para todos os parâmetros necessários.
 
 ## ✅ Status de Segurança
 
-O projeto não possui mais o Snyk como dependência obrigatória. O uso do Snyk para análise de vulnerabilidades agora é opcional e individual:
+O projeto não possui mais o Snyk como dependência obrigatória. O uso do Snyk para análise
+ de vulnerabilidades agora é opcional e individual:
 
 - Caso deseje, instale o Snyk apenas para seu ambiente com:
 	```bash
@@ -120,7 +123,8 @@ O projeto não possui mais o Snyk como dependência obrigatória. O uso do Snyk 
 	npm install snyk --no-save
 	```
 
-Assim, a análise de segurança pode ser feita por quem desejar, sem impactar outros usuários do repositório.
+Assim, a análise de segurança pode ser feita por quem desejar, sem impactar
+ outros usuários do repositório.
 
 ## 🛡️ Segurança
 
