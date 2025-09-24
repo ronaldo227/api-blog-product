@@ -1,36 +1,36 @@
-# Documentação Complementar
 
-Este projeto adota uma documentação distribuída para manter o código limpo e facilitar a consulta. Além dos READMEs em cada subpasta, utilize os arquivos abaixo para entender fluxos, integrações e decisões arquiteturais.
+# DOCS.md
 
-## Estrutura sugerida
+Documentação central do projeto, reunindo informações técnicas, fluxos e decisões arquiteturais.
 
-- `DOCS.md`: Guia geral de arquitetura, fluxos principais, diagramas e visão de alto nível.
-- `USAGE.md`: Exemplos de uso da API, comandos úteis, fluxos de autenticação, upload, etc.
-- `SECURITY.md`: Práticas de segurança adotadas, checklist OWASP, dicas para produção.
-- `INTEGRATION.md`: Integrações externas (ex: Prisma, Snyk, ferramentas de CI/CD).
-- `CONTRIBUTING.md`: Guia para novos contribuidores, padrões de branch, commit e PR.
+## Índice
+- [Visão Geral](#visão-geral)
+- [Fluxos Principais](#fluxos-principais)
+- [Padrões de Projeto](#padrões-de-projeto)
+- [Integrações](#integrações)
+- [Referências](#referências)
 
-## Exemplo de tópicos para cada arquivo
+## Visão Geral
+Descreva aqui o propósito do projeto, contexto de uso e principais diferenciais.
 
-### DOCS.md
-- Diagrama de pastas e fluxo de requisição
-- Como funciona a autenticação JWT
-- Como adicionar um novo domínio (ex: produtos)
+## Fluxos Principais
+- Autenticação
+- Cadastro e login
+- Publicação de posts
+- Moderação/administração
 
-### USAGE.md
-- Como rodar o projeto localmente
-- Como executar scripts de build, lint, test, seed, etc.
-- Exemplos de endpoints e payloads
+## Padrões de Projeto
+- Modularização por domínio
+- Middlewares reutilizáveis
+- Services isolados
 
-### SECURITY.md
-- Como configurar variáveis sensíveis
-- Checklist de segurança para deploy
-- Como rodar análise Snyk
+## Integrações
+- Banco de dados: PostgreSQL (Prisma ORM)
+- Autenticação: JWT
+- Outros serviços externos
 
-### INTEGRATION.md
-- Como configurar e usar Prisma
-- Como integrar com Snyk, CI/CD, etc.
-
----
-
-> Mantenha estes arquivos atualizados conforme o projeto evolui. Documentação clara é fundamental para onboarding, manutenção e segurança.
+## Referências
+- [README.md](./README.md)
+- [SECURITY.md](./SECURITY.md)
+- [USAGE.md](./USAGE.md)
+- [INTEGRATION.md](./INTEGRATION.md)

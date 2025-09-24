@@ -17,7 +17,18 @@ alinhado às tendências e necessidades reais do desenvolvimento profissional.
 ---
 
 
+
 Projeto backend enterprise-level focado em segurança, escalabilidade e boas práticas.
+
+## 🐞 Logs e Debug
+
+- Para ver logs detalhados de debug, rode:
+  
+	```bash
+	DEBUG=api:* npm run dev
+	```
+- Por padrão, logs de debug só aparecem em ambiente de desenvolvimento.
+- Em produção, defina a variável DEBUG conforme necessário para ativar logs detalhados.
 
 ---
 
