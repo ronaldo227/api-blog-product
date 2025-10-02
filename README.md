@@ -21,6 +21,13 @@ alinhado às tendências e necessidades reais do desenvolvimento profissional.
 Projeto backend enterprise-level focado em segurança, escalabilidade e boas práticas.
 
 
+
+## ⚠️ Compatibilidade TypeScript
+
+Este projeto está otimizado para TypeScript 6.x devido ao uso de `baseUrl` e `paths` para imports com alias. O campo `ignoreDeprecations` foi adicionado ao `tsconfig.json` para silenciar avisos sobre futuras mudanças. Quando o TypeScript 7 for lançado, será necessário adaptar a configuração conforme as novas recomendações.
+
+---
+
 ## 📦 Uploads e Arquivos Estáticos
 
 - Imagens de capa de posts são processadas e salvas em `public/uploads/covers`.
