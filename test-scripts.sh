@@ -6,7 +6,7 @@ echo "🧪 TESTANDO SCRIPTS DO PACKAGE.JSON"
 echo "===================================="
 echo ""
 
-cd "/home/ronaldodev/Área de trabalho/projetoNode/node_projct/api-blog-product"
+
 
 echo "📋 Scripts disponíveis:"
 echo "  ✅ npm run logs        # Logs completos em modo dev"
