@@ -7,6 +7,17 @@ Esta pasta contém a lógica de negócio da aplicação, separando responsabilid
 - Os services não lidam com requisições HTTP diretamente, apenas com dados e regras de negócio.
 - Devem ser puros sempre que possível (sem efeitos colaterais externos).
 
+
+## Upload de Imagem de Capa
+
+A função `handleCover` processa uploads de imagens, valida o tipo, gera um nome único e move o arquivo para a pasta correta, retornando o caminho público para uso no frontend.
+
+Exemplo:
+```ts
+const publicPath = await handleCover(file);
+// publicPath: '/uploads/covers/uuid.jpg'
+```
+
 ## Exemplos
 
 ### Usuário

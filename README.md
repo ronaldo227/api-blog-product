@@ -20,6 +20,18 @@ alinhado às tendências e necessidades reais do desenvolvimento profissional.
 
 Projeto backend enterprise-level focado em segurança, escalabilidade e boas práticas.
 
+
+## 📦 Uploads e Arquivos Estáticos
+
+- Imagens de capa de posts são processadas e salvas em `public/uploads/covers`.
+- O backend gera nomes únicos para cada arquivo e retorna o caminho público para uso no frontend.
+- O Express deve estar configurado para servir a pasta `public/uploads` como arquivos estáticos.
+
+Exemplo de configuração:
+```ts
+app.use("/uploads", express.static("public/uploads"));
+```
+
 ## 🐞 Logs e Debug
 
 - Para ver logs detalhados de debug, rode:
