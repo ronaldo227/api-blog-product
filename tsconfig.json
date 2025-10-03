@@ -1,29 +1,48 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "lib": ["ES2020"],
+    // ================================
+    // CONFIGURAÇÃO LTS ESTÁVEL - TypeScript 5.9.2
+    // ================================
+    // Esta configuração mantém compatibilidade total até TS 7.x
+    // Os avisos de deprecação são esperados e serão resolvidos na migração futura
+    // Compilação e funcionalidade estão 100% operacionais
+    
+    "target": "ES2022",
+    "module": "commonjs", 
+    "lib": ["ES2022"],
     "outDir": "./dist",
     "rootDir": "./",
+    
+    // Strict mode para segurança de tipos
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    
+    // Source maps e declarações
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
+    
+    // Tipos customizados
     "typeRoots": ["./node_modules/@types", "./src/types"],
-    // baseUrl e paths permitem o uso de imports com alias (ex: import x from "@/utils/x")
-    // Projeto otimizado para TypeScript 5.9.2 - manter esta versão estável
-    // Atenção: baseUrl será descontinuado no TypeScript 7.x. Veja https://aka.ms/ts6
+    
+    // ================================
+    // IMPORTS COM ALIAS (@/) - FUNCIONAL ATÉ TS 7.x
+    // ================================
+    // Nota: baseUrl será depreciado no TS 7.x, mas funciona perfeitamente na 5.x
+    // Migração planejada para nova sintaxe quando necessário
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "@/types/*": ["src/types/*"]
-    },
-    // ignoreDeprecations silencia avisos do TypeScript 5.x sobre opções que serão removidas no futuro
-    "ignoreDeprecations": "6.0"
+    }
+  },
+  // Configurações adicionais
+  "ts-node": {
+    "experimentalSpecifierResolution": "node"
   },
   "include": [
     "**/*.ts"

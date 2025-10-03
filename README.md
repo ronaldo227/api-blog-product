@@ -2,52 +2,55 @@
 # API Blog Product
 
 ![Visitas](https://komarev.com/ghpvc/?username=ronaldo227&label=Visualizações&color=0e75b6&style=flat)
+[![Status](https://img.shields.io/badge/Status-✅%20Funcionando-brightgreen)](./STATUS.md)
+[![Segurança](https://img.shields.io/badge/Vulnerabilidades-0-brightgreen)](./SECURITY_REPORT.md)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)](./tsconfig.json)
 
+> ⚠️ Este projeto recebe atualizações periódicas com melhorias e análises de código,
+> garantindo qualidade e alinhamento com as melhores práticas do mercado.
 
-> ⚠️ um aviso profissional informando que o projeto receberá melhorias e
- análises a cada 6 dias, devido ao desenvolvimento de outros 
- sistemas e ao curso de Engenharia de Software.
-
-
-Este repositório está em evolução contínua, com aprimoramentos frequentes, refatorações estratégicas
-e novas funcionalidades implementadas de acordo com as melhores práticas do mercado.
-Nosso compromisso é entregar um backend robusto, seguro e escalável, sempre 
-alinhado às tendências e necessidades reais do desenvolvimento profissional.
+Backend enterprise-level em evolução contínua, com foco em segurança, escalabilidade e performance.
 
 ---
 
+## 🚀 Status do Sistema
 
+**✅ Sistema 100% operacional** - [Ver relatório completo](./STATUS.md)
+
+- 🔧 **Build:** Compilando sem erros
+- 🌐 **Servidor:** Rodando estável na porta 4444
+- 🔒 **Segurança:** 0 vulnerabilidades detectadas
+- 🛡️ **Proteção:** Headers e middleware ativos
+- ⚡ **Performance:** Respostas otimizadas
+
+---
 
 Projeto backend enterprise-level focado em segurança, escalabilidade e boas práticas.
 
-
-
 ## ⚠️ Compatibilidade TypeScript
 
-Este projeto está otimizado para TypeScript 5.9.2 devido ao uso de `baseUrl` e `paths` para imports com alias. O campo `ignoreDeprecations` foi adicionado ao `tsconfig.json` para silenciar avisos sobre futuras mudanças. **Recomendamos manter esta versão estável até que seja absolutamente necessário migrar**. Quando o TypeScript 7 for lançado, será necessário adaptar a configuração conforme as novas recomendações.
+Projeto otimizado para TypeScript 5.9.2 com suporte a imports via alias (`@/`). Configuração estável recomendada até migração futura para TypeScript 7.x.
 
 ---
 
 ## 📦 Uploads e Arquivos Estáticos
 
-- Imagens de capa de posts são processadas e salvas em `public/uploads/covers`.
-- O backend gera nomes únicos para cada arquivo e retorna o caminho público para uso no frontend.
-- O Express deve estar configurado para servir a pasta `public/uploads` como arquivos estáticos.
+Sistema de upload seguro para imagens de capa:
+- Processamento automático e validação de tipos
+- Geração de nomes únicos via UUID
+- Armazenamento organizado em `public/uploads/covers`
 
-Exemplo de configuração:
 ```ts
 app.use("/uploads", express.static("public/uploads"));
 ```
 
-## 🐞 Logs e Debug
+## 🐞 Debug e Logs
 
-- Para ver logs detalhados de debug, rode:
-  
-	```bash
-	DEBUG=api:* npm run dev
-	```
-- Por padrão, logs de debug só aparecem em ambiente de desenvolvimento.
-- Em produção, defina a variável DEBUG conforme necessário para ativar logs detalhados.
+```bash
+DEBUG=api:* npm run dev  # Logs detalhados em desenvolvimento
+```
+
+Logs estruturados via Winston com namespaces configuráveis para produção.
 
 ---
 
@@ -139,36 +142,23 @@ Veja `.env.example` para todos os parâmetros necessários.
 ---
 
 
-## ✅ Status de Segurança
+## ✅ Segurança
 
-O projeto não possui mais o Snyk como dependência obrigatória. O uso do Snyk para análise
- de vulnerabilidades agora é opcional e individual:
+Análise de vulnerabilidades via Snyk (opcional):
+```bash
+npm install -g snyk && snyk test
+```
 
-- Caso deseje, instale o Snyk apenas para seu ambiente com:
-	```bash
-	npm install -g snyk
-	```
-- Ou use localmente sem afetar o projeto:
-	```bash
-	npm install snyk --no-save
-	```
-
-Assim, a análise de segurança pode ser feita por quem desejar, sem impactar
- outros usuários do repositório.
-
-## 🛡️ Segurança
-
-- JWT com expiração e assinatura forte
-- Hash de senhas seguro
-- CORS restrito
-- Rate limiting configurável
-- Input validation
+Configuração enterprise com JWT, bcrypt, Helmet, CORS e rate limiting.
 
 ---
 
-## 📚 Documentação
+## � Relatórios
 
-Endpoints, exemplos de uso e detalhes técnicos em breve na Wiki do projeto.
+- 📈 **[Status do Sistema](./STATUS.md)** - Verificação completa de funcionamento
+- 🔒 **[Relatório de Segurança](./SECURITY_REPORT.md)** - Análise de vulnerabilidades
+- 📚 **[Documentação Técnica](./DOCS.md)** - Arquitetura e implementação
+- 🔧 **[Guia de Uso](./USAGE.md)** - Endpoints e exemplos
 
 ---
 

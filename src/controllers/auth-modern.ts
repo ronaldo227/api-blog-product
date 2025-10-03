@@ -16,7 +16,9 @@ import { AppLogger } from '../utils/logger-modern';
 export const signin = asyncHandler(async (req: Request, res: Response) => {
     const { name, email, password } = req.body;
     
-    AppLogger.auth('Signin attempt', { email, name: name?.substring(0, 3) + '***' });
+    // Validação de tipo segura para logs
+    const safeName = typeof name === 'string' ? name.substring(0, 3) + '***' : '[invalid]';
+    AppLogger.auth('Signin attempt', { email, name: safeName });
     
     try {
         // Criar novo usuário diretamente (createUser já verifica se existe)
