@@ -24,7 +24,7 @@ Projeto backend enterprise-level focado em segurança, escalabilidade e boas pr�
 
 ## ⚠️ Compatibilidade TypeScript
 
-Este projeto está otimizado para TypeScript 6.x devido ao uso de `baseUrl` e `paths` para imports com alias. O campo `ignoreDeprecations` foi adicionado ao `tsconfig.json` para silenciar avisos sobre futuras mudanças. Quando o TypeScript 7 for lançado, será necessário adaptar a configuração conforme as novas recomendações.
+Este projeto está otimizado para TypeScript 5.9.2 devido ao uso de `baseUrl` e `paths` para imports com alias. O campo `ignoreDeprecations` foi adicionado ao `tsconfig.json` para silenciar avisos sobre futuras mudanças. **Recomendamos manter esta versão estável até que seja absolutamente necessário migrar**. Quando o TypeScript 7 for lançado, será necessário adaptar a configuração conforme as novas recomendações.
 
 ---
 

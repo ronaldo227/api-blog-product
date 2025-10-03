@@ -14,15 +14,16 @@
     "declarationMap": true,
     "sourceMap": true,
     "typeRoots": ["./node_modules/@types", "./src/types"],
-  // baseUrl e paths permitem o uso de imports com alias (ex: import x from "@/utils/x")
-  // Atenção: baseUrl será descontinuado no TypeScript 7.x. Veja https://aka.ms/ts6
-  "baseUrl": "./",
+    // baseUrl e paths permitem o uso de imports com alias (ex: import x from "@/utils/x")
+    // Projeto otimizado para TypeScript 5.9.2 - manter esta versão estável
+    // Atenção: baseUrl será descontinuado no TypeScript 7.x. Veja https://aka.ms/ts6
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "@/types/*": ["src/types/*"]
     },
-  // ignoreDeprecations silencia avisos do TypeScript 6.x sobre opções que serão removidas no futuro
-  "ignoreDeprecations": "6.0"
+    // ignoreDeprecations silencia avisos do TypeScript 5.x sobre opções que serão removidas no futuro
+    "ignoreDeprecations": "6.0"
   },
   "include": [
     "**/*.ts"
