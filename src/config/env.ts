@@ -1,15 +1,15 @@
+// Validação de ambiente com Zod: JWT_KEY ≥32 chars (dev) / ≥64 (prod), SSL warnings
 import { z } from 'zod';
 import dotenv from 'dotenv';
 
-// 🔧 IMPORTANTE: Carregar variáveis de ambiente primeiro
 dotenv.config();
 
-// 🔒 SEGURANÇA: Schema para validar variáveis de ambiente
 const envSchema = z.object({
     NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
     PORT: z.string().transform(Number).default(4444),
     DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
     JWT_KEY: z.string().min(32, 'JWT_KEY must be at least 32 characters long'),
+    JWT_TTL: z.string().regex(/^(\d+)([smhd])?$|^\d+[smhd]$/i, 'JWT_TTL must be like 15m, 2h, 3600').default('1h'),
     ALLOWED_ORIGINS: z.string().optional(),
     RATE_LIMIT_WINDOW_MS: z.string().transform(Number).default(900000),
     RATE_LIMIT_MAX_REQUESTS: z.string().transform(Number).default(5),

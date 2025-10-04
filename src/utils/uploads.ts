@@ -1,3 +1,4 @@
+// Processamento de upload: Sharp remove EXIF/payloads, redimensiona, gera UUID
 import fs from 'fs/promises';
 import path from 'path';
 import sharp from 'sharp';
@@ -8,7 +9,6 @@ export const UPLOAD_ROOT = 'uploads';
 export const TEMP_DIR = path.join(UPLOAD_ROOT, 'temp');
 export const COVERS_DIR = path.join(UPLOAD_ROOT, 'covers');
 
-// Mapeamento controlado de mimetypes para extensões seguras
 export const MIME_EXTENSION: Record<string, string> = {
   'image/jpeg': '.jpg',
   'image/png': '.png',
@@ -23,10 +23,11 @@ export async function ensureUploadDirs() {
 
 export interface ProcessCoverOptions {
   file: Express.Multer.File;
-  reencode?: boolean; // usa sharp para re-encode seguro
+  reencode?: boolean;
   maxWidth?: number;
 }
 
+// Processa imagem: re-codifica com Sharp (remove EXIF), redimensiona, limpa temp
 export async function processCover({ file, reencode = true, maxWidth = 1600 }: ProcessCoverOptions): Promise<{ publicPath: string; finalPath: string; filename: string; }> {
   const ext = MIME_EXTENSION[file.mimetype];
   if (!ext) {

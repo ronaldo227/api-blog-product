@@ -3,23 +3,34 @@ import { prisma } from "@/libs/prisma";
 import { ExtendedRequest } from "@/types/extended-resquest";
 import { Response } from "express";
 import { slugify } from "transliteration";
+import { sendError } from '@/utils/http-error';
+import { AppLogger } from '@/utils/logger-modern';
+import { CreatePostSchema } from '@/schemas/post';
 
 /** Adiciona um novo post autenticado ao banco de dados */
 
 // Controlador para adicionar um post (exemplo de rota protegida)
 export const addPost = async (req: ExtendedRequest, res: Response) => {
+    // privateRoute já garante req.userId; guard extra para TS
     if (!req.userId) {
-        return res.status(401).json({ error: "Usuário não autenticado" });
+        return sendError(res, { status: 401, code: 'AUTH_UNAUTHORIZED', message: 'Não autenticado' });
     }
 
-    const { title, body } = req.body;
+    const parsed = CreatePostSchema.safeParse(req.body);
+    if (!parsed.success) {
+        const details = parsed.error.flatten().fieldErrors;
+        return sendError(res, {
+            status: 400,
+            code: 'ADMIN_POST_INVALID',
+            message: 'Dados do post inválidos',
+            details
+        });
+    }
+
+    const { title, body } = parsed.data;
     let cover = "";
     if (req.file && req.file.filename) {
         cover = req.file.filename;
-    }
-
-    if (!title || !body) {
-        return res.status(400).json({ error: "Título e conteúdo são obrigatórios" });
     }
 
     let baseSlug = slugify(title, { lowercase: true, separator: '-' });
@@ -40,8 +51,14 @@ export const addPost = async (req: ExtendedRequest, res: Response) => {
             }
         });
         return res.status(201).json(newPost);
-    } catch (error) {
-        console.error("Erro ao criar post:", error);
-        return res.status(500).json({ error: "Erro ao criar post" });
+    } catch (error: any) {
+        AppLogger.error('Erro ao criar post', { error: error?.message });
+        return sendError(res, {
+            status: 500,
+            code: 'ADMIN_POST_CREATE_ERROR',
+            message: 'Erro ao criar post',
+            details: error?.message,
+            logLevel: 'error'
+        });
     }
 };

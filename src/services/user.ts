@@ -12,22 +12,13 @@ type VerifyProps = {
     password: string;
 }
 
+// Cria usuário com hash bcrypt (12 rounds). Previne TOCTOU via P2002.
 export const createUser = async ({ name, email, password }: CreateUserProps) => {
-
     try {
-        // 🔒 SEGURANÇA: Normalizar email
         email = email.toLowerCase().trim();
-        // 🔒 SEGURANÇA: Verificar se usuário já existe
-        const existingUser = await prisma.user.findFirst({
-            where: { email }
-        });
-        
-        if (existingUser) {
-            throw new Error('User already exists');
-        }
-        // 🔒 SEGURANÇA: Salt rounds aumentado para 12
         const saltRounds = 12;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
+        
         const newUser = await prisma.user.create({
             data: {
                 name: name.trim(),
@@ -44,35 +35,38 @@ export const createUser = async ({ name, email, password }: CreateUserProps) => 
         });
 
         return newUser;
-    } catch (error) {
+    } catch (error: any) {
+        // Prisma P2002 = unique constraint violation
+        if (error?.code === 'P2002') {
+            console.error('Error creating user: User already exists');
+            return false;
+        }
         console.error('Error creating user:', error);
         return false;
     }
 }
 
+// Verifica credenciais. Usa hash dummy para prevenir timing attack.
 export const verifyUser = async ({ email, password }: VerifyProps) => {
 
     try {
-        // 🔒 SEGURANÇA: Normalizar email
         email = email.toLowerCase().trim();
         const user = await prisma.user.findFirst({
             where: { email }
         });
         
         if (!user) {
-            // 🔒 SEGURANÇA: Simular tempo de verificação para prevenir timing attacks
+            // Timing attack prevention: simulate verification delay
             await bcrypt.hash('dummy', 12);
             return false;
         }
         
-        // 🔒 SEGURANÇA: Usar compare assíncrono
         const isValidPassword = await bcrypt.compare(password, user.password);
         
         if (!isValidPassword) {
             return false;
         }
         
-        // 🔒 SEGURANÇA: Retornar sem password
         const { password: _, ...userWithoutPassword } = user;
         
         

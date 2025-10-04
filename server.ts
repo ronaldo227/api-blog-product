@@ -1,6 +1,11 @@
+/**
+ * LEGACY SERVER FILE (server-legacy.ts)
+ * Mantido apenas para estudo/comparação.
+ * O servidor oficial de produção agora é `server-modern.ts`.
+ * Não adicionar novas funcionalidades aqui.
+ */
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import helmet from 'helmet';
 import { securityHeaders, validateContentType, sanitizeInput } from './src/middlewares/security';
@@ -42,9 +47,9 @@ server.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// 🔒 SEGURANÇA: Limite de tamanho do body
-server.use(bodyParser.json({ limit: '10mb' }));
-server.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
+// 🔒 SEGURANÇA: Limite de tamanho do body (Express embutido)
+server.use(express.json({ limit: '10mb' }));
+server.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // 🔒 SEGURANÇA: Validar Content-Type
 server.use(validateContentType);
