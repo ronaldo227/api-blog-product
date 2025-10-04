@@ -5,6 +5,7 @@
  */
 import { z } from 'zod';
 import { Request, Response, NextFunction } from 'express';
+import { sanitizeBody } from './sanitize';
 import { ValidationError } from './error-handler';
 
 // 🔒 SCHEMAS DE VALIDAÇÃO MODERNOS
@@ -148,39 +149,4 @@ export const validateSlugParam = validate(paramSchemas.slug, 'params');
 export const validateIdParam = validate(paramSchemas.id, 'params');
 export const validatePagination = validate(querySchemas.pagination, 'query');
 
-// 🧹 MIDDLEWARE DE SANITIZAÇÃO AVANÇADA
-export const sanitizeBody = (req: Request, res: Response, next: NextFunction) => {
-    if (req.body && typeof req.body === 'object') {
-        // Remove propriedades perigosas
-        const dangerousProps = ['__proto__', 'constructor', 'prototype'];
-        dangerousProps.forEach(prop => {
-            delete req.body[prop];
-        });
-        
-        // Sanitiza strings recursivamente
-        const sanitizeObject = (obj: any): any => {
-            if (typeof obj === 'string') {
-                return obj
-                    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-                    .replace(/javascript:/gi, '')
-                    .replace(/on\w+\s*=/gi, '')
-                    .trim();
-            } else if (Array.isArray(obj)) {
-                return obj.map(sanitizeObject);
-            } else if (obj && typeof obj === 'object') {
-                const sanitized: any = {};
-                Object.keys(obj).forEach(key => {
-                    if (!dangerousProps.includes(key)) {
-                        sanitized[key] = sanitizeObject(obj[key]);
-                    }
-                });
-                return sanitized;
-            }
-            return obj;
-        };
-        
-        req.body = sanitizeObject(req.body);
-    }
-    
-    next();
-};
+// (Sanitização agora unificada em sanitize.ts)

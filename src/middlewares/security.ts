@@ -4,6 +4,7 @@
  * See LICENSE file in the project root for full license information.
  */
 import { RequestHandler } from 'express';
+import { sanitizeBody } from './sanitize';
 import rateLimit from 'express-rate-limit';
 
 // 🔒 SEGURANÇA: Rate limiting para login/register
@@ -58,36 +59,5 @@ export const validateContentType: RequestHandler = (req, res, next) => {
     next();
 };
 
-// 🔒 SEGURANÇA: Sanitizar input
-export const sanitizeInput: RequestHandler = (req, res, next) => {
-    
-    if (req.body) {
-        // Remove propriedades perigosas
-        const dangerousProps = ['__proto__', 'constructor', 'prototype'];
-        
-        const sanitize = (obj: any): any => {
-            if (typeof obj !== 'object' || obj === null) return obj;
-            
-            const sanitized: any = {};
-            for (const key in obj) {
-                if (!dangerousProps.includes(key)) {
-                    if (typeof obj[key] === 'string') {
-                        // Remover caracteres perigosos
-                        const original = obj[key];
-                        sanitized[key] = obj[key]
-                            .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
-                            .trim();
-                    } else {
-                        sanitized[key] = sanitize(obj[key]);
-                    }
-                } else {
-                }
-            }
-            return sanitized;
-        };
-        
-        req.body = sanitize(req.body);
-    } else {
-    }
-    next();
-};
+// Sanitização agora centralizada: reutilizar sanitizeBody se necessário em pipeline
+export const sanitizeInput: RequestHandler = sanitizeBody;

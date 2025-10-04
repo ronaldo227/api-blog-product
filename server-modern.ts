@@ -19,7 +19,7 @@ import {
     generalRateLimit, 
     configureTrustProxy 
 } from './src/middlewares/rate-limit-modern';
-import { sanitizeBody } from './src/middlewares/validation';
+import { sanitizeBody } from './src/middlewares/sanitize';
 
 // Importar rotas
 import { authRoutes } from './src/routes/auth';
