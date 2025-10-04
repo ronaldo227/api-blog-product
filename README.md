@@ -347,15 +347,7 @@ Este projeto é desenvolvido com dedicação e mantido de forma **gratuita** par
 - ✨ **Implementar novas funcionalidades** solicitadas
 - 📚 **Melhorar a documentação** continuamente
 - 🧪 **Expandir cobertura de testes**
-- 🌟 **Suporte técnico** para implementações
 
-### **🏆 Reconhecimento:**
-Apoiadores serão listados no **Hall da Fama** e receberão:
-- 🎖️ **Badge especial** no README
-- 💌 **Acesso prioritário** para suporte
-- 📧 **Newsletter exclusiva** com updates técnicos
-
----
 
 ## �👤 Autor
 
