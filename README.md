@@ -101,9 +101,12 @@ npx prisma migrate devDEBUG=api:* npm run dev  # Logs detalhados em desenvolvime
 ```
 
 # Inicie o servidor de desenvolvimento
+npm run dev
 
-npm run devLogs estruturados via Winston com namespaces configuráveis para produção.
-
+# Logs estruturados via Winston com namespaces configuráveis para produção
+npm run logs:info        # Logs de produção (info level)
+npm run logs:error       # Apenas erros 
+npm run debug:verbose    # Debug detalhado para desenvolvimento
 ```
 
 ---
