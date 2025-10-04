@@ -21,6 +21,7 @@ import {
 } from './src/middlewares/rate-limit-modern';
 import { sanitizeBody } from './src/middlewares/sanitize';
 import { ensureUploadDirs, UPLOAD_ROOT } from './src/utils/uploads';
+import { requestId } from './src/middlewares/request-id';
 
 // Importar rotas
 import { authRoutes } from './src/routes/auth';
@@ -42,6 +43,9 @@ class APIServer {
     private initializeMiddlewares(): void {
         // 🔧 Configurar proxy para rate limiting
         configureTrustProxy(this.app);
+
+    // 🆔 Request correlation ID
+    this.app.use(requestId);
 
         // 🗜️ PERFORMANCE: Compressão gzip
         this.app.use(compression({
