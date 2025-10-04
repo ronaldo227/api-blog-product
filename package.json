@@ -26,9 +26,23 @@
     "test:unit": "vitest run src/tests/unit",
     "test:integration": "vitest run src/tests/integration"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "api",
+    "blog",
+    "nodejs",
+    "typescript",
+    "express",
+    "prisma",
+    "jwt",
+    "security",
+    "enterprise",
+    "backend"
+  ],
+  "author": {
+    "name": "Ronaldo Silva",
+    "url": "https://github.com/ronaldo227"
+  },
+  "license": "MIT",
   "type": "commonjs",
   "dependencies": {
     "@prisma/client": "^6.15.0",

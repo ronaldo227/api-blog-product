@@ -7,6 +7,10 @@
 [![Status](https://img.shields.io/badge/Status-✅%20Funcionando-brightgreen)](./STATUS.md)
 [![Segurança](https://img.shields.io/badge/Vulnerabilidades-0-brightgreen)](./SECURITY_REPORT.md)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-blue)](./tsconfig.json)
+[![Tests](https://img.shields.io/badge/Tests-20%2F20_✅-brightgreen)](#testes)
+[![Dependencies](https://img.shields.io/badge/Dependencies-14_Optimized-orange)](#-otimização-de-dependências)
+[![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
+[![Donate](https://img.shields.io/badge/PayPal-Apoie_o_Projeto-blue?logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=46WJBAZ2X4X6L)
 
 > ⚠️ Este projeto recebe atualizações periódicas com melhorias e análises de código,
 > garantindo qualidade e alinhamento com as melhores práticas do mercado.
@@ -323,11 +327,43 @@ npm run health       # Verifica status
 
 ---
 
-## 👤 Autor
+## � Apoie o Projeto
+
+Este projeto é desenvolvido com dedicação e mantido de forma **gratuita** para a comunidade. Se ele foi útil para você ou sua empresa, considere apoiar o desenvolvimento contínuo:
+
+### **🎯 Como Ajudar:**
+
+[![Donate](https://img.shields.io/badge/PayPal-Donate-blue?style=for-the-badge&logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=46WJBAZ2X4X6L)
+
+**Outras formas de apoiar:**
+- ⭐ **Dar uma estrela** no repositório
+- 🐛 **Reportar bugs** e sugerir melhorias  
+- 📝 **Contribuir** com código ou documentação
+- 📢 **Compartilhar** o projeto com outros desenvolvedores
+- 💼 **Contratar** para projetos enterprise
+
+### **🚀 Com seu apoio, podemos:**
+- 🔄 **Manter atualizações** regulares de segurança
+- ✨ **Implementar novas funcionalidades** solicitadas
+- 📚 **Melhorar a documentação** continuamente
+- 🧪 **Expandir cobertura de testes**
+- 🌟 **Suporte técnico** para implementações
+
+### **🏆 Reconhecimento:**
+Apoiadores serão listados no **Hall da Fama** e receberão:
+- 🎖️ **Badge especial** no README
+- 💌 **Acesso prioritário** para suporte
+- 📧 **Newsletter exclusiva** com updates técnicos
+
+---
+
+## �👤 Autor
 
 **Ronaldo Silva** - [@ronaldo227](https://github.com/ronaldo227)
 
 **Projeto:** [api-blog-product](https://github.com/ronaldo227/api-blog-product)
+
+**Contato:** Para projetos enterprise ou consultoria técnica
 
 ---
 
@@ -337,4 +373,4 @@ MIT License - Veja [LICENSE](./LICENSE) para detalhes.
 
 ---
 
-⭐ **Se este projeto foi útil, considere dar uma estrela!**
+⭐ **Se este projeto foi útil, considere dar uma estrela e apoiar o desenvolvimento!**
