@@ -1,151 +1,299 @@
-# Types: Definições de Tipos TypeScript
+# Types: Tipos TypeScript Customizados 🔷# Types: Definições de Tipos TypeScript
 
-Tipos customizados e extensões de tipos de bibliotecas externas.
 
-## 📁 Arquivo
 
-### `extended-request.ts` - Extensão do Request Express
+Definições de tipos customizados e extensões de tipos de bibliotecas.Tipos customizados e extensões de tipos de bibliotecas externas.
 
-**Problema:**
-O tipo `Request` do Express não possui a propriedade `userId` que injetamos no middleware `privateRoute`.
 
-**Solução:**
+
+## 📁 Estrutura## 📁 Arquivo
+
+
+
+```### `extended-request.ts` - Extensão do Request Express
+
+types/
+
+└── extended-request.ts     # Extensão do Request do Express**Problema:**
+
+```O tipo `Request` do Express não possui a propriedade `userId` que injetamos no middleware `privateRoute`.
+
+
+
+## 🎯 Responsabilidade**Solução:**
+
 Criar tipo estendido que adiciona `userId` opcional.
 
-```typescript
-import { Request } from 'express';
+Centralizar tipos customizados para garantir type safety em toda a aplicação.
 
-export interface ExtendedRequest extends Request {
+```typescript
+
+---import { Request } from 'express';
+
+
+
+## 📄 `extended-request.ts`export interface ExtendedRequest extends Request {
+
   userId?: {
-    id: number;
+
+### Problema    id: number;
+
+O tipo `Request` do Express não possui `userId` que injetamos no middleware `privateRoute`.  };
+
+}
+
+### Solução```
+
+```typescript
+
+import { Request } from 'express';## 🎯 Uso
+
+
+
+export interface ExtendedRequest extends Request {### Antes (Erro TypeScript)
+
+  userId?: {```typescript
+
+    id: number;import { Request, Response } from 'express';
+
   };
-}
-```
 
-## 🎯 Uso
+}export const addPost = async (req: Request, res: Response) => {
 
-### Antes (Erro TypeScript)
-```typescript
-import { Request, Response } from 'express';
+```  const userId = req.userId.id; // ❌ Property 'userId' does not exist
 
-export const addPost = async (req: Request, res: Response) => {
-  const userId = req.userId.id; // ❌ Property 'userId' does not exist
 };
-```
 
-### Depois (Type-safe)
+---```
+
+
+
+## 🔧 Uso### Depois (Type-safe)
+
 ```typescript
+
+### Em Controllersimport { Response } from 'express';
+
+```typescriptimport { ExtendedRequest } from '@/types/extended-request';
+
 import { Response } from 'express';
-import { ExtendedRequest } from '@/types/extended-request';
 
-export const addPost = async (req: ExtendedRequest, res: Response) => {
+import { ExtendedRequest } from '@/types/extended-request';export const addPost = async (req: ExtendedRequest, res: Response) => {
+
   const userId = req.userId!.id; // ✅ TypeScript sabe que userId existe
-};
-```
 
-## 🔍 Type Guard
+export const addPost = async (req: ExtendedRequest, res: Response) => {};
 
-**Verificação segura:**
-```typescript
-import { ExtendedRequest } from '@/types/extended-request';
+  // ✅ TypeScript sabe que userId existe```
 
-export const addPost = async (req: ExtendedRequest, res: Response) => {
-  // Type guard para garantir que userId existe
-  if (!req.userId) {
+  const userId = req.userId!.id;
+
+  ## 🔍 Type Guard
+
+  const post = await createPost({
+
+    ...req.body,**Verificação segura:**
+
+    userId```typescript
+
+  });import { ExtendedRequest } from '@/types/extended-request';
+
+  
+
+  res.status(201).json(post);export const addPost = async (req: ExtendedRequest, res: Response) => {
+
+};  // Type guard para garantir que userId existe
+
+```  if (!req.userId) {
+
     return res.status(401).json({ error: 'Não autenticado' });
-  }
-  
-  // Aqui TypeScript sabe que userId não é undefined
-  const userId = req.userId.id;
-  
-  const post = await prisma.post.create({
-    data: {
-      title: req.body.title,
-      userId: userId // ✅ Type-safe
-    }
-  });
-};
-```
 
-## 🛡️ Fluxo de Autenticação
+### Em Middlewares  }
 
-```
-1. Cliente envia: Authorization: Bearer <token>
+```typescript  
+
+import { Response, NextFunction } from 'express';  // Aqui TypeScript sabe que userId não é undefined
+
+import { ExtendedRequest } from '@/types/extended-request';  const userId = req.userId.id;
+
+  
+
+export const privateRoute = async (  const post = await prisma.post.create({
+
+  req: ExtendedRequest,    data: {
+
+  res: Response,      title: req.body.title,
+
+  next: NextFunction      userId: userId // ✅ Type-safe
+
+) => {    }
+
+  const token = req.headers.authorization?.replace('Bearer ', '');  });
+
+  };
+
+  if (!token) {```
+
+    return res.status(401).json({ error: 'Token não fornecido' });
+
+  }## 🛡️ Fluxo de Autenticação
+
+  
+
+  const payload = verifyToken(token);```
+
+  1. Cliente envia: Authorization: Bearer <token>
+
+  // Injeta userId (type-safe)   ↓
+
+  req.userId = { id: payload.userId };2. privateRoute middleware:
+
+     - Extrai token
+
+  next();   - Valida JWT
+
+};   - Decodifica payload { userId: 123 }
+
+```   - INJETA: req.userId = { id: 123 }
+
    ↓
-2. privateRoute middleware:
-   - Extrai token
-   - Valida JWT
-   - Decodifica payload { userId: 123 }
-   - INJETA: req.userId = { id: 123 }
-   ↓
-3. Controller:
+
+---3. Controller:
+
    - req é do tipo ExtendedRequest
-   - Acessa req.userId.id com type safety
-   - Usa userId nas operações
-```
 
-## 📊 Estrutura do userId
+## 🛡️ Type Guards   - Acessa req.userId.id com type safety
+
+   - Usa userId nas operações
+
+### Verificação Segura```
 
 ```typescript
-// O que é injetado pelo privateRoute
-req.userId = {
-  id: 123  // ID numérico do usuário autenticado
-}
 
-// Acesso no controller
-const userId = req.userId.id;  // 123 (number)
+export const addPost = async (req: ExtendedRequest, res: Response) => {## 📊 Estrutura do userId
+
+  // Type guard
+
+  if (!req.userId) {```typescript
+
+    return res.status(401).json({ error: 'Não autenticado' });// O que é injetado pelo privateRoute
+
+  }req.userId = {
+
+    id: 123  // ID numérico do usuário autenticado
+
+  // Aqui TypeScript sabe que userId não é undefined}
+
+  const userId = req.userId.id;
+
+  // Acesso no controller
+
+  // ... resto do códigoconst userId = req.userId.id;  // 123 (number)
+
+};```
+
 ```
 
 ## 🧩 Outros Tipos Customizados (Futuro)
 
+---
+
 ### Pagination
-```typescript
+
+## 📚 Tipos Futuros```typescript
+
 export interface PaginationQuery {
-  page?: number;
+
+Exemplos de tipos que podem ser adicionados:  page?: number;
+
   limit?: number;
-  sortBy?: string;
-  order?: 'asc' | 'desc';
-}
-```
 
-### API Response
-```typescript
-export interface ApiResponse<T> {
-  data: T;
+### Pagination  sortBy?: string;
+
+```typescript  order?: 'asc' | 'desc';
+
+export interface PaginationQuery {}
+
+  page?: number;```
+
+  limit?: number;
+
+  sortBy?: string;### API Response
+
+  order?: 'asc' | 'desc';```typescript
+
+}export interface ApiResponse<T> {
+
+```  data: T;
+
   message?: string;
-  timestamp: string;
-}
 
-export interface ApiError {
-  error: {
-    code: string;
-    message: string;
+### API Response  timestamp: string;
+
+```typescript}
+
+export interface ApiResponse<T> {
+
+  data: T;export interface ApiError {
+
+  message?: string;  error: {
+
+  timestamp: string;    code: string;
+
+}    message: string;
+
     details?: any;
-  };
-}
-```
 
-### JWT Payload
-```typescript
-export interface JwtPayload {
-  userId: number;
+export interface ApiError {  };
+
+  error: {}
+
+    code: string;```
+
+    message: string;
+
+    details?: unknown;### JWT Payload
+
+  };```typescript
+
+}export interface JwtPayload {
+
+```  userId: number;
+
   iat: number;
+
+### JWT Payload  exp: number;
+
+```typescript}
+
+export interface JwtPayload {```
+
+  userId: number;
+
+  iat: number;## 📖 Uso Avançado
+
   exp: number;
-}
-```
 
-## 📖 Uso Avançado
+}### Tipando Middleware
 
-### Tipando Middleware
-```typescript
+``````typescript
+
 import { Response, NextFunction } from 'express';
-import { ExtendedRequest } from '@/types/extended-request';
 
-export const privateRoute = async (
+---import { ExtendedRequest } from '@/types/extended-request';
+
+
+
+## 🔗 Referênciasexport const privateRoute = async (
+
   req: ExtendedRequest,
-  res: Response,
-  next: NextFunction
-) => {
+
+- [TypeScript Handbook - Interfaces](https://www.typescriptlang.org/docs/handbook/interfaces.html)  res: Response,
+
+- [Express TypeScript](https://expressjs.com/en/advanced/typescript.html)  next: NextFunction
+
+- [Type Guards](https://www.typescriptlang.org/docs/handbook/2/narrowing.html)) => {
+
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     

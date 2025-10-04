@@ -1,303 +1,300 @@
-# Routes: Definição de Rotas da API
+# Routes: Definição de Rotas 🛣️
 
-Define todas as rotas HTTP da aplicação e conecta endpoints aos seus respectivos controllers.
+Mapeamento de URLs para controllers com middlewares específicos.
 
-## 📋 Estrutura
+## 📁 Estrutura
 
 ```
 routes/
-├── auth.ts       → Rotas de autenticação (signup, signin)
-├── admin.ts      → Rotas administrativas (CRUD posts)
-└── main.ts       → Rotas públicas (listagem, detalhes)
+├── auth.ts         # Rotas de autenticação
+├── auth-modern.ts  # Rotas de autenticação (Express 5)
+├── admin.ts        # Rotas administrativas (protegidas)
+└── main.ts         # Rotas públicas
 ```
 
-## 📁 Arquivos
+## 🗺️ Mapa de Rotas
 
-### `auth.ts` - Rotas de Autenticação
+### Autenticação (`/api/auth`)
 
-**Rotas Disponíveis:**
-```typescript
-POST /auth/signup  → Registro de novo usuário
-POST /auth/signin  → Login de usuário
-```
-
-**Middlewares Aplicados:**
-- ✅ Rate limiting (5 req/15min)
-- ✅ Sanitização de body
-- ✅ Validação Zod
+| Método | Endpoint | Controller | Middleware | Rate Limit | Descrição |
+|--------|----------|------------|------------|------------|-----------|
+| POST | `/signup` | `signup` | validate | 5/15min | Cadastro de usuário |
+| POST | `/signin` | `signin` | validate | 5/15min | Login de usuário |
 
 **Exemplo:**
-```typescript
-import { Router } from 'express';
-import { signup, signin } from '@/controllers/auth';
-import { authLimiter } from '@/middlewares/rate-limit-modern';
-
-const router = Router();
-
-router.post('/signup', authLimiter, signup);
-router.post('/signin', authLimiter, signin);
-
-export default router;
-```
-
-**Request/Response:**
 ```bash
 # Signup
 curl -X POST http://localhost:4444/api/auth/signup \
   -H "Content-Type: application/json" \
-  -d '{
-    "name": "João Silva",
-    "email": "joao@example.com",
-    "password": "senha123"
-  }'
+  -d '{"email":"user@example.com","password":"senha123"}'
 
-# Response 201
-{
-  "user": {
-    "id": 1,
-    "name": "João Silva",
-    "email": "joao@example.com"
-  },
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-}
+# Signin
+curl -X POST http://localhost:4444/api/auth/signin \
+  -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"senha123"}'
 ```
 
-### `admin.ts` - Rotas Administrativas
+---
 
-**Rotas Disponíveis:**
-```typescript
-POST   /admin/post       → Criar post (com upload)
-PUT    /admin/post/:id   → Atualizar post
-DELETE /admin/post/:id   → Deletar post
-```
+### Admin (`/api/admin`)
 
-**Middlewares Aplicados:**
-- ✅ Private route (JWT obrigatório)
-- ✅ Rate limiting (50 req/15min)
-- ✅ Multer (upload de imagem)
-- ✅ Sanitização de body
-- ✅ Validação Zod
+**Todas as rotas requerem autenticação** (middleware `privateRoute`)
+
+| Método | Endpoint | Controller | Middlewares | Rate Limit | Descrição |
+|--------|----------|------------|-------------|------------|-----------|
+| POST | `/posts` | `addPost` | privateRoute, upload, validate | 20/1min | Criar post |
+| PUT | `/posts/:id` | `updatePost` | privateRoute, upload, validate | 30/1min | Atualizar post |
+| DELETE | `/posts/:id` | `deletePost` | privateRoute | 30/1min | Deletar post |
 
 **Exemplo:**
-```typescript
-import { Router } from 'express';
-import { addPost, updatePost, deletePost } from '@/controllers/admin';
-import { privateRoute } from '@/middlewares/private-route';
-import { upload } from '@/libs/multer';
-
-const router = Router();
-
-// Todas as rotas requerem autenticação
-router.post('/post', privateRoute, upload.single('cover'), addPost);
-router.put('/post/:id', privateRoute, updatePost);
-router.delete('/post/:id', privateRoute, deletePost);
-
-export default router;
-```
-
-**Request/Response:**
 ```bash
-# Criar post com upload
-curl -X POST http://localhost:4444/api/admin/post \
-  -H "Authorization: Bearer eyJhbGci..." \
+# Criar post
+curl -X POST http://localhost:4444/api/admin/posts \
+  -H "Authorization: Bearer {token}" \
   -F "title=Meu Post" \
-  -F "body=Conteúdo do post..." \
+  -F "body=Conteúdo do post" \
   -F "cover=@imagem.jpg"
 
-# Response 201
-{
-  "post": {
-    "id": 1,
-    "title": "Meu Post",
-    "slug": "meu-post",
-    "body": "Conteúdo do post...",
-    "cover": "/uploads/covers/abc-123.jpg",
-    "userId": 1,
-    "createdAt": "2025-10-04T18:00:00.000Z"
-  }
-}
+# Atualizar post
+curl -X PUT http://localhost:4444/api/admin/posts/1 \
+  -H "Authorization: Bearer {token}" \
+  -F "title=Novo Título"
+
+# Deletar post
+curl -X DELETE http://localhost:4444/api/admin/posts/1 \
+  -H "Authorization: Bearer {token}"
 ```
 
-### `main.ts` - Rotas Públicas
+---
 
-**Rotas Disponíveis:**
-```typescript
-GET /posts        → Lista todos os posts
-GET /post/:slug   → Detalhes de um post específico
-GET /ping         → Health check simples
-```
+### Público (`/api`)
 
-**Middlewares Aplicados:**
-- ✅ Rate limiting (50 req/15min)
-- ✅ Cache headers (futuro)
+Rotas sem autenticação (acesso público).
+
+| Método | Endpoint | Controller | Rate Limit | Descrição |
+|--------|----------|------------|------------|-----------|
+| GET | `/posts` | `listPosts` | 100/1min | Listar posts (paginado) |
+| GET | `/posts/:slug` | `getPost` | 100/1min | Detalhes de um post |
 
 **Exemplo:**
-```typescript
-import { Router } from 'express';
-import { getPosts, getPost, ping } from '@/controllers/main';
-
-const router = Router();
-
-router.get('/posts', getPosts);
-router.get('/post/:slug', getPost);
-router.get('/ping', ping);
-
-export default router;
-```
-
-**Request/Response:**
 ```bash
 # Listar posts
-curl http://localhost:4444/api/posts
+curl http://localhost:4444/api/posts?page=1&limit=10
 
-# Response 200
+# Detalhes do post
+curl http://localhost:4444/api/posts/meu-primeiro-post
+```
+
+---
+
+### Health Check (`/health`)
+
+| Método | Endpoint | Controller | Descrição |
+|--------|----------|------------|-----------|
+| GET | `/health` | `healthCheck` | Status da API e banco |
+
+**Exemplo:**
+```bash
+curl http://localhost:4444/health
+```
+
+**Response:**
+```json
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "Meu Post",
-      "slug": "meu-post",
-      "excerpt": "Primeiros 100 chars...",
-      "cover": "/uploads/covers/abc-123.jpg",
-      "createdAt": "2025-10-04T18:00:00.000Z"
-    }
-  ],
-  "total": 1
+  "status": "healthy",
+  "timestamp": "2025-10-04T18:30:00Z",
+  "uptime": 3600,
+  "database": "connected"
 }
 ```
+
+---
 
 ## 🔒 Proteção de Rotas
 
-### Públicas (Sem Autenticação)
+### Rotas Públicas
 ```typescript
-// main.ts - Qualquer um pode acessar
-router.get('/posts', getPosts);
-router.get('/post/:slug', getPost);
+// Sem middleware de autenticação
+router.get('/posts', listPosts);
+router.get('/posts/:slug', getPost);
 ```
 
-### Protegidas (JWT Obrigatório)
+### Rotas Protegidas
 ```typescript
-// admin.ts - Requer token válido
-router.post('/post', privateRoute, addPost);
-//                   ^^^^^^^^^^^^
-//                   Middleware valida JWT
+// Requer token JWT válido
+router.post('/admin/posts', privateRoute, addPost);
+router.put('/admin/posts/:id', privateRoute, updatePost);
+router.delete('/admin/posts/:id', privateRoute, deletePost);
 ```
 
-**Fluxo de Proteção:**
-```
-1. Cliente envia: Authorization: Bearer <token>
-2. privateRoute extrai e valida token
-3. Se válido: injeta req.userId e chama next()
-4. Se inválido: retorna 401
-```
-
-## 📊 Rate Limiting por Rota
-
-| Rota | Limite | Janela | Motivo |
-|------|--------|--------|--------|
-| `/auth/*` | 5 req | 15 min | Prevenir brute force |
-| `/admin/*` | 50 req | 15 min | Uso normal admin |
-| `/posts` | 50 req | 15 min | Uso público |
-
-**Implementação:**
+### Com Upload
 ```typescript
-// auth.ts
-router.use(authLimiter); // 5 req/15min
-router.post('/signup', signup);
-router.post('/signin', signin);
-
-// admin.ts
-router.use(generalLimiter); // 50 req/15min
-router.post('/post', privateRoute, addPost);
+// Protegida + Upload de arquivo
+router.post('/admin/posts', 
+  privateRoute,           // 1. Valida JWT
+  upload.single('cover'), // 2. Processa upload
+  validate(postSchema),   // 3. Valida dados
+  addPost                 // 4. Controller
+);
 ```
 
-## 🎯 Padrões de URL
+---
 
-### RESTful
-```
-GET    /posts           → Lista recursos
-GET    /post/:slug      → Detalhes de um recurso
-POST   /admin/post      → Cria recurso
-PUT    /admin/post/:id  → Atualiza recurso
-DELETE /admin/post/:id  → Deleta recurso
-```
+## ⚡ Rate Limiting
 
-### Nomes no Singular vs Plural
-- **Plural** para coleções: `/posts`
-- **Singular** para recurso único: `/post/:slug`
-
-### Prefixos
-- `/api/` - Prefixo global (configurado em server.ts)
-- `/auth/` - Agrupamento de autenticação
-- `/admin/` - Agrupamento administrativo
-
-## 🧪 Testes de Rotas
-
-**Testes em** `src/tests/integration/`:
-- ✅ POST /auth/signup (201, 409)
-- ✅ POST /auth/signin (200, 401)
-- ✅ POST /admin/post sem auth (401)
-- ✅ POST /admin/post com auth (201)
-- ✅ GET /posts (200)
-- ✅ GET /post/:slug (200, 404)
-
-**Exemplo de Teste:**
+### Global
 ```typescript
-describe('Auth Routes', () => {
-  it('POST /auth/signup cria usuário', async () => {
-    const response = await request(app)
-      .post('/api/auth/signup')
-      .send({
-        name: 'João',
-        email: 'joao@test.com',
-        password: 'senha123'
-      });
+// 100 requisições por minuto (todas as rotas)
+app.use(rateLimitMiddleware);
+```
+
+### Por Rota
+
+#### Autenticação (Restritivo)
+```typescript
+// 5 tentativas a cada 15 minutos
+const authRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5
+});
+
+router.post('/auth/signin', authRateLimit, signin);
+router.post('/auth/signup', authRateLimit, signup);
+```
+
+#### Admin (Moderado)
+```typescript
+// 20 criações por minuto
+const adminCreateLimit = rateLimit({
+  windowMs: 60000,
+  max: 20
+});
+
+router.post('/admin/posts', adminCreateLimit, addPost);
+```
+
+#### Público (Permissivo)
+```typescript
+// 100 leituras por minuto
+const publicReadLimit = rateLimit({
+  windowMs: 60000,
+  max: 100
+});
+
+router.get('/posts', publicReadLimit, listPosts);
+```
+
+---
+
+## 📊 Estrutura de Arquivo de Rota
+
+### Padrão
+```typescript
+import { Router } from 'express';
+import { signup, signin } from '@/controllers/auth';
+import { validate } from '@/middlewares/validation';
+import { authSchema } from '@/schemas/auth';
+
+const router = Router();
+
+// POST /api/auth/signup
+router.post('/signup', 
+  validate(authSchema),  // Middleware de validação
+  signup                 // Controller
+);
+
+// POST /api/auth/signin
+router.post('/signin',
+  validate(authSchema),
+  signin
+);
+
+export default router;
+```
+
+### Com Múltiplos Middlewares
+```typescript
+router.post('/admin/posts',
+  privateRoute,            // 1. Autenticação
+  upload.single('cover'),  // 2. Upload
+  validate(postSchema),    // 3. Validação
+  addPost                  // 4. Controller
+);
+```
+
+---
+
+## 🎯 Convenções RESTful
+
+### Recursos
+- **Singular para detalhes:** `/posts/:id` ou `/posts/:slug`
+- **Plural para coleções:** `/posts`
+- **Ações em subpaths:** `/admin/posts` (não `/posts/admin`)
+
+### Métodos HTTP
+- **GET** - Buscar/Listar (idempotente)
+- **POST** - Criar
+- **PUT** - Atualizar completo
+- **PATCH** - Atualizar parcial
+- **DELETE** - Deletar (idempotente)
+
+### Status Codes
+- **200** - OK (GET, PUT, PATCH)
+- **201** - Created (POST)
+- **204** - No Content (DELETE)
+- **400** - Bad Request (validação)
+- **401** - Unauthorized (sem token/token inválido)
+- **403** - Forbidden (autenticado mas sem permissão)
+- **404** - Not Found
+- **409** - Conflict (duplicação)
+- **429** - Too Many Requests (rate limit)
+- **500** - Internal Server Error
+
+---
+
+## 🧪 Testes
+
+### Rota Pública
+```typescript
+describe('GET /api/posts', () => {
+  it('should list posts', async () => {
+    const response = await request(app).get('/api/posts');
     
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('token');
+    expect(response.status).toBe(200);
+    expect(response.body.posts).toBeInstanceOf(Array);
   });
 });
 ```
 
-## 📚 Registrando Rotas
-
-**Em `server.ts`:**
+### Rota Protegida
 ```typescript
-import authRoutes from './routes/auth';
-import adminRoutes from './routes/admin';
-import mainRoutes from './routes/main';
-
-// Prefixo global
-app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
-app.use('/api', mainRoutes);
-
-// URLs finais:
-// /api/auth/signup
-// /api/admin/post
-// /api/posts
-```
-
-## 🔍 Debugging de Rotas
-
-**Listar todas as rotas:**
-```typescript
-// Em development
-app._router.stack.forEach((r) => {
-  if (r.route?.path) {
-    console.log(r.route.path);
-  }
+describe('POST /api/admin/posts', () => {
+  it('should create post with valid token', async () => {
+    const token = signToken(1);
+    
+    const response = await request(app)
+      .post('/api/admin/posts')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ title: 'Test', body: 'Content' });
+    
+    expect(response.status).toBe(201);
+  });
+  
+  it('should reject without token', async () => {
+    const response = await request(app)
+      .post('/api/admin/posts')
+      .send({ title: 'Test', body: 'Content' });
+    
+    expect(response.status).toBe(401);
+  });
 });
 ```
 
-**Logs de Requisição:**
-```typescript
-// Morgan middleware (configurado em server.ts)
-app.use(morgan('combined')); // Log de cada requisição
-```
+---
 
-## 📖 Referências
+## 📚 Referências
 
-- [Express Router](https://expressjs.com/en/guide/routing.html)
-- [REST API Best Practices](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
+- [Express Routing](https://expressjs.com/en/guide/routing.html)
+- [RESTful API Design](https://restfulapi.net/)
 - [HTTP Status Codes](https://httpstatuses.com/)
+- [HTTP Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
