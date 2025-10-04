@@ -5,6 +5,7 @@
  */
 import { Request, Response, NextFunction } from 'express';
 import { AppLogger } from '../utils/logger-modern';
+import { sendError } from '@/utils/http-error';
 
 // 🚨 ERRO HANDLING GLOBAL MODERNO
 export interface AppError extends Error {
@@ -94,29 +95,24 @@ export const globalErrorHandler = (
     // Definir status code
     const statusCode = error.statusCode || 500;
     
-    // Response estruturada
-    const errorResponse = {
-        success: false,
-        error: {
-            message: error.isOperational ? error.message : 'Erro interno do servidor',
-            code: error.code || 'INTERNAL_ERROR',
-            timestamp: new Date().toISOString()
-        }
-    };
+    const isOperational = error.isOperational !== false;
+    const message = isOperational ? error.message : 'Erro interno do servidor';
+    const details = process.env.NODE_ENV === 'development' ? {
+        stack: error.stack,
+        url: req.url,
+        method: req.method,
+        body: req.body,
+        params: req.params,
+        query: req.query
+    } : undefined;
 
-    // Em desenvolvimento, incluir stack trace
-    if (process.env.NODE_ENV === 'development') {
-        (errorResponse.error as any).stack = error.stack;
-        (errorResponse.error as any).details = {
-            url: req.url,
-            method: req.method,
-            body: req.body,
-            params: req.params,
-            query: req.query
-        };
-    }
-
-    res.status(statusCode).json(errorResponse);
+    sendError(res, {
+        status: statusCode,
+        code: error.code || 'INTERNAL_ERROR',
+        message,
+        details,
+        logLevel: statusCode >= 500 ? 'error' : 'warn'
+    });
 };
 
 // 🔄 MIDDLEWARE PARA CAPTURAR ERROS ASYNC
@@ -127,7 +123,7 @@ export const asyncHandler = (fn: Function) => {
 };
 
 // 🚫 MIDDLEWARE PARA ROTAS NÃO ENCONTRADAS
-export const notFoundHandler = (req: Request, res: Response, next: NextFunction) => {
+export const notFoundHandler = (req: Request, _res: Response, next: NextFunction) => {
     const error = new NotFoundError(`Rota ${req.method} ${req.url} não encontrada`);
     next(error);
 };

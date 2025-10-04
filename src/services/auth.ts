@@ -44,9 +44,12 @@ export const verifyRequest = async (req: Request): Promise<JWTPayload | false> =
     }
 
     const token = match[1];
+    if (!token || typeof token !== 'string') {
+        return false;
+    }
 
     try {
-        const payload = verifyJWT(token) as JWTPayload; // usa a função do src/libs/jwt.ts
+    const payload = verifyJWT(token) as JWTPayload; // usa a função do src/libs/jwt.ts
         
         return payload;
     } catch (err) {

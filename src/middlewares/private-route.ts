@@ -21,6 +21,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import { verifyRequest } from "../services/auth"; // volta 1 pasta (services)
+import { sendError } from '@/utils/http-error';
 
 // Tipos locais
 interface JWTPayload {
@@ -44,9 +45,10 @@ export const privateRoute = async (
 
 
         if (!user) {
-            res.status(401).json({
-                error: "Unauthorized",
-                message: "Token não fornecido ou inválido"
+            sendError(res, {
+                status: 401,
+                code: 'AUTH_UNAUTHORIZED',
+                message: 'Token não fornecido ou inválido'
             });
             return;
         }
@@ -57,10 +59,10 @@ export const privateRoute = async (
 
         next();
     } catch (error) {
-
-        res.status(401).json({
-            error: "Unauthorized",
-            message: "Erro na validação do token"
+        sendError(res, {
+            status: 401,
+            code: 'AUTH_UNAUTHORIZED',
+            message: 'Erro na validação do token'
         });
     }
 };

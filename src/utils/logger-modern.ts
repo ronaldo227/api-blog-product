@@ -47,22 +47,22 @@ export const logger = winston.createLogger({
 
 // 🚀 PERFORMANCE: Substituir console.log por logger estruturado
 export class AppLogger {
-    static debug(message: string, meta?: object) {
+    static debug(message: string, meta?: Record<string, unknown>) {
         if (env.NODE_ENV !== 'production') {
-            logger.debug(message, meta);
+            logger.debug(message, meta as any);
         }
     }
 
-    static info(message: string, meta?: object) {
-        logger.info(message, meta);
+    static info(message: string, meta?: Record<string, unknown>) {
+        logger.info(message, meta as any);
     }
 
-    static warn(message: string, meta?: object) {
-        logger.warn(message, meta);
+    static warn(message: string, meta?: Record<string, unknown>) {
+        logger.warn(message, meta as any);
     }
 
-    static error(message: string, error?: Error | object) {
-        logger.error(message, error);
+    static error(message: string, error?: Error | Record<string, unknown>) {
+        logger.error(message, error as any);
     }
 
     static request(req: any, res: any, responseTime?: number) {
@@ -85,7 +85,7 @@ export class AppLogger {
         }
     }
 
-    static auth(message: string, meta?: object) {
+    static auth(message: string, meta?: Record<string, unknown>) {
         // Logs de autenticação sempre importantes
         logger.info(`[AUTH] ${message}`, {
             ...meta,
@@ -93,7 +93,7 @@ export class AppLogger {
         });
     }
 
-    static security(message: string, meta?: object) {
+    static security(message: string, meta?: Record<string, unknown>) {
         // Logs de segurança sempre críticos
         logger.warn(`[SECURITY] ${message}`, {
             ...meta,

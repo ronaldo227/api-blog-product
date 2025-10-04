@@ -10,8 +10,8 @@
     "target": "ES2022",
     "module": "commonjs", 
     "lib": ["ES2022"],
-    "outDir": "./dist",
-    "rootDir": "./",
+  "outDir": "./dist",
+  "rootDir": "src",
     
     // Strict mode para segurança de tipos
     "strict": true,
@@ -34,18 +34,21 @@
     // ================================
     // Nota: baseUrl será depreciado no TS 7.x, mas funciona perfeitamente na 5.x
     // Migração planejada para nova sintaxe quando necessário
-    "baseUrl": "./",
+    "baseUrl": "src",
     "paths": {
-      "@/*": ["src/*"],
-      "@/types/*": ["src/types/*"]
-    }
+      "@/*": ["*"],
+      "@/types/*": ["types/*"]
+    },
+    "ignoreDeprecations": "5.0",
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true
   },
   // Configurações adicionais
   "ts-node": {
     "experimentalSpecifierResolution": "node"
   },
   "include": [
-    "**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
