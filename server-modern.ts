@@ -197,8 +197,8 @@ class APIServer {
                     description: 'API REST moderna para blog com autenticação JWT',
                     endpoints: {
                         auth: {
-                            'POST /api/auth/signin': 'Criar conta',
-                            'POST /api/auth/signup': 'Fazer login',
+                            'POST /api/auth/signup': 'Criar conta',
+                            'POST /api/auth/signin': 'Fazer login',
                             'POST /api/auth/validate': 'Validar token'
                         },
                         posts: {
