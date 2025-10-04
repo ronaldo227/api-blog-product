@@ -11,6 +11,7 @@
 [![Dependencies](https://img.shields.io/badge/Dependencies-14_Optimized-orange)](#-otimização-de-dependências)
 [![License](https://img.shields.io/badge/License-MIT-blue)](./LICENSE)
 [![Donate](https://img.shields.io/badge/PayPal-Apoie_o_Projeto-blue?logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=46WJBAZ2X4X6L)
+[![PIX](https://img.shields.io/badge/PIX-Doar_🇧🇷-green?logo=brazil)](mailto:silva.ronaldosilva.ronaldo7@gmail.com?subject=PIX%20Donation%20-%20API%20Blog%20Product)
 
 > ⚠️ Este projeto recebe atualizações periódicas com melhorias e análises de código,
 > garantindo qualidade e alinhamento com as melhores práticas do mercado.
@@ -334,6 +335,12 @@ Este projeto é desenvolvido com dedicação e mantido de forma **gratuita** par
 ### **🎯 Como Ajudar:**
 
 [![Donate](https://img.shields.io/badge/PayPal-Donate-blue?style=for-the-badge&logo=paypal)](https://www.paypal.com/donate/?hosted_button_id=46WJBAZ2X4X6L)
+[![PIX](https://img.shields.io/badge/PIX-Doar-green?style=for-the-badge&logo=brazil)](mailto:silva.ronaldosilva.ronaldo7@gmail.com?subject=PIX%20Donation%20-%20API%20Blog%20Product&body=Ol%C3%A1!%20Gostaria%20de%20fazer%20uma%20doa%C3%A7%C3%A3o%20via%20PIX.%20Por%20favor,%20envie%20a%20chave%20PIX%20ou%20QR%20Code.)
+
+**💳 Opções de Doação:**
+- 🌍 **PayPal**: Para doações internacionais
+- 🇧🇷 **PIX**: Para doações nacionais (Brasil)
+- 📧 **Contato PIX**: silva.ronaldosilva.ronaldo7@gmail.com
 
 **Outras formas de apoiar:**
 - ⭐ **Dar uma estrela** no repositório
