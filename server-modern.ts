@@ -20,6 +20,7 @@ import {
     configureTrustProxy 
 } from './src/middlewares/rate-limit-modern';
 import { sanitizeBody } from './src/middlewares/sanitize';
+import { ensureUploadDirs, UPLOAD_ROOT } from './src/utils/uploads';
 
 // Importar rotas
 import { authRoutes } from './src/routes/auth';
@@ -138,6 +139,13 @@ class APIServer {
             maxAge: env.NODE_ENV === 'production' ? '1d' : '0',
             etag: true,
             lastModified: true
+        }));
+
+        // 📸 Uploads públicos (capas) - somente leitura
+        this.app.use('/uploads', express.static(UPLOAD_ROOT, {
+            maxAge: env.NODE_ENV === 'production' ? '1d' : '0',
+            immutable: env.NODE_ENV === 'production',
+            etag: true
         }));
 
         // 🔍 MIDDLEWARE DE REQUEST LOGGING (apenas em desenvolvimento)
@@ -270,6 +278,7 @@ class APIServer {
 
 // 🚀 Inicializar servidor
 const server = new APIServer();
-server.start();
+// Garantir diretórios de upload antes de aceitar requests
+ensureUploadDirs().then(() => server.start());
 
 export default server.getApp();

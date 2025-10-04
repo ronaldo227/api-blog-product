@@ -1,23 +1,22 @@
 import multer, { FileFilterCallback } from 'multer';
 import path from 'path';
+import { ensureUploadDirs, TEMP_DIR, MIME_EXTENSION } from '@/utils/uploads';
 
-// Multer configurado para aceitar apenas imagens (jpg, jpeg, png, gif) até 5MB, salvando em uploads/temp
+// Garante diretórios assincronamente sem usar top-level await (fire and forget)
+(async () => {
+    try { await ensureUploadDirs(); } catch { /* noop */ }
+})();
 
-// Caminho absoluto para a pasta de uploads temporários
-const uploadFolder = path.resolve(__dirname, '../../uploads/temp');
+const uploadFolder = path.resolve(TEMP_DIR);
 
-const fileFilter = (
-    req: Express.Request,
-    file: Express.Multer.File,
-    cb: FileFilterCallback
-) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
-    if (allowedTypes.includes(file.mimetype)) {
+const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: FileFilterCallback) => {
+    if (MIME_EXTENSION[file.mimetype]) {
         cb(null, true);
     } else {
-        cb(new Error('Tipo de arquivo não permitido. Apenas imagens são aceitas.'));
+        cb(new Error('Tipo de arquivo não permitido'));
     }
 };
+
 export const upload = multer({
     dest: uploadFolder,
     limits: {
