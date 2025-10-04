@@ -12,7 +12,12 @@ type VerifyProps = {
     password: string;
 }
 
-// Cria usuário com hash bcrypt (12 rounds). Previne TOCTOU via P2002.
+/**
+ * Cria usuário com proteção contra race condition TOCTOU
+ * 
+ * Estratégia: Inserção direta + constraint única do banco
+ * Benefícios: Operação atômica, sem janela de corrida, aproveita BD constraints
+ */
 export const createUser = async ({ name, email, password }: CreateUserProps) => {
     try {
         email = email.toLowerCase().trim();
@@ -46,7 +51,12 @@ export const createUser = async ({ name, email, password }: CreateUserProps) => 
     }
 }
 
-// Verifica credenciais. Usa hash dummy para prevenir timing attack.
+/**
+ * Autentica usuário com proteção contra timing attacks
+ * 
+ * Técnica: Hash dummy quando usuário não existe para manter tempo constante
+ * Benefício: Impede enumeração de emails válidos via timing analysis
+ */
 export const verifyUser = async ({ email, password }: VerifyProps) => {
 
     try {

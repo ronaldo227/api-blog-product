@@ -1,7 +1,11 @@
 /**
- * MIT License
- * Copyright (c) 2025 Ronaldo Silva
- * See LICENSE file in the project root for full license information.
+ * Sistema de Rate Limiting Multi-Camadas
+ * 
+ * Estratégias implementadas:
+ * - Rate limiting geral: Proteção DDoS básica
+ * - Rate limiting de autenticação: Anti-brute force
+ * - Rate limiting de recursos: Proteção de endpoints críticos
+ * - Configuração dinâmica por endpoint
  */
 import rateLimit from 'express-rate-limit';
 import { Request, Response } from 'express';
@@ -9,9 +13,7 @@ import { AppLogger } from '../utils/logger-modern';
 import { env } from '../config/env';
 import { RateLimitError } from './error-handler';
 
-// 🛡️ RATE LIMITING AVANÇADO E MODERNO
-
-// Rate limiting geral da API
+/** Rate limiting geral - Primeira linha de defesa contra DDoS */
 export const generalRateLimit = rateLimit({
     windowMs: env.RATE_LIMIT_WINDOW_MS, // 15 minutos
     max: env.RATE_LIMIT_MAX_REQUESTS * 10, // 50 requests por IP

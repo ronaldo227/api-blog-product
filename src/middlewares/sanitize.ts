@@ -1,11 +1,20 @@
+/**
+ * Sistema de Sanitização Multi-Camadas
+ * 
+ * Proteções implementadas:
+ * - XSS: Remove script tags, javascript: URLs, on* handlers
+ * - Prototype Pollution: Bloqueia propriedades perigosas
+ * - ReDoS: Limita comprimento de strings, regexes otimizadas
+ * - DoS: Limita profundidade de objetos aninhados
+ */
 import { Request, Response, NextFunction } from 'express';
 
-// Sanitiza corpo da requisição: remove scripts, protege contra prototype pollution e ReDoS
+// Configurações de segurança
 const DANGEROUS_PROPS = ['__proto__', 'constructor', 'prototype'];
 const MAX_DEPTH = 8;
-const MAX_STRING_LENGTH = 20 * 1024; // 20KB per string (ReDoS prevention)
+const MAX_STRING_LENGTH = 20 * 1024; // 20KB - Proteção ReDoS
 
-// Regex pré-compilados
+// Regexes pré-compiladas para performance
 const SCRIPT_TAG_RE = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
 const JAVASCRIPT_URL_RE = /javascript:/gi;
 const ON_ATTR_RE = /on[a-z]+\s*=\s*"[^"]*"|on[a-z]+\s*=\s*'[^']*'/gi;

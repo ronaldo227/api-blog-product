@@ -5,7 +5,7 @@ import compression from 'compression';
 import { httpLogger } from './utils/http-logger';
 import dotenv from 'dotenv';
 
-// 🔧 Carregar env primeiro
+// Configuração prioritária de ambiente antes dos imports
 dotenv.config();
 
 import { env } from './config/env';
@@ -23,12 +23,20 @@ import { sanitizeBody } from './middlewares/sanitize';
 import { ensureUploadDirs, UPLOAD_ROOT } from './utils/uploads';
 import { requestId } from './middlewares/request-id';
 
-// Rotas
+// Rotas modulares organizadas por domínio
 import { authRoutes } from './routes/auth';
 import { adminRoutes } from './routes/admin';
 import { mainRoutes } from './routes/main';
 import { buildHealthPayload } from '@/services/health';
 
+/**
+ * Servidor API enterprise-level com arquitetura em camadas
+ * 
+ * Pipeline de requisição:
+ * Trust Proxy → Request ID → Compression → CORS → Helmet → 
+ * HTTP Logger → Rate Limiting → Body Parser → Sanitização → 
+ * Routes → Error Handler
+ */
 class APIServer {
     private app: Application;
     private port: number;

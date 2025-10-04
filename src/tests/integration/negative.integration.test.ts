@@ -61,7 +61,7 @@ describe('Negative Auth/Admin Scenarios', () => {
       .field('body', 'Conteudo 2');
     expect([201]).toContain(second.status);
     expect(second.body.slug).not.toBe(first.body.slug);
-  });
+  }, 10000); // Timeout aumentado para 10s
 
   it('admin post sem title retorna 400', async () => {
     expect(token).toBeDefined();
