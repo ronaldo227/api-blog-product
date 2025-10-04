@@ -4,7 +4,6 @@
  * See LICENSE file in the project root for full license information.
  */
 import rateLimit from 'express-rate-limit';
-import slowDown from 'express-slow-down';
 import { Request, Response } from 'express';
 import { AppLogger } from '../utils/logger-modern';
 import { env } from '../config/env';
@@ -69,16 +68,7 @@ export const authRateLimit = rateLimit({
     }
 });
 
-// Slow down para requests pesadas (progressivamente mais lento)
-export const heavyOperationsSlowDown = slowDown({
-    windowMs: 15 * 60 * 1000, // 15 minutos
-    delayAfter: 2, // Permitir 2 requests rápidas
-    delayMs: () => 500, // 500ms de delay fixo (nova sintaxe)
-    maxDelayMs: 20000, // Máximo 20 segundos de delay
-    validate: { delayMs: false } // Desabilitar warning
-});
-
-// Rate limiting para criação de recursos
+// Rate limiting para criação de recursos (mais restritivo)
 export const createResourceRateLimit = rateLimit({
     windowMs: 60 * 1000, // 1 minuto
     max: 3, // 3 criações por minuto

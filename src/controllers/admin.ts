@@ -2,7 +2,7 @@
 import { prisma } from "@/libs/prisma";
 import { ExtendedRequest } from "@/types/extended-resquest";
 import { Response } from "express";
-import { slugify } from "transliteration";
+import { generateUniqueSlug } from "@/utils/slug";
 import { sendError } from '@/utils/http-error';
 import { AppLogger } from '@/utils/logger-modern';
 import { CreatePostSchema } from '@/schemas/post';
@@ -33,12 +33,13 @@ export const addPost = async (req: ExtendedRequest, res: Response) => {
         cover = req.file.filename;
     }
 
-    let baseSlug = slugify(title, { lowercase: true, separator: '-' });
-    let slug = baseSlug;
-    let count = 1;
-    while (await prisma.post.findUnique({ where: { slug } })) {
-        slug = `${baseSlug}-${count++}`;
-    }
+    // Gerar slug único
+    const checkSlugExists = async (slug: string) => {
+        const post = await prisma.post.findUnique({ where: { slug } });
+        return !!post;
+    };
+    
+    const slug = await generateUniqueSlug(title, checkSlugExists);
 
     try {
         const newPost = await prisma.post.create({

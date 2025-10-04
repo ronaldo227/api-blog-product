@@ -2,14 +2,14 @@ import express, { Application } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
-import morgan from 'morgan';
+import { httpLogger } from './utils/http-logger';
 import dotenv from 'dotenv';
 
 // 🔧 Carregar env primeiro
 dotenv.config();
 
 import { env } from './config/env';
-import { AppLogger, morganStream } from './utils/logger-modern';
+import { AppLogger } from './utils/logger-modern';
 import { 
     globalErrorHandler, 
     notFoundHandler, 
@@ -54,11 +54,8 @@ class APIServer {
             threshold: 1024
         }));
 
-        if (env.NODE_ENV === 'development') {
-            this.app.use(morgan('dev', { stream: morganStream }));
-        } else {
-            this.app.use(morgan('combined', { stream: morganStream }));
-        }
+        // HTTP logging próprio (substitui Morgan)
+        this.app.use(httpLogger);
 
         this.app.use(helmet({
             contentSecurityPolicy: {
