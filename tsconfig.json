@@ -39,7 +39,7 @@
       "@/*": ["*"],
       "@/types/*": ["types/*"]
     },
-    "ignoreDeprecations": "5.0",
+    "ignoreDeprecations": "6.0",
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true
   },
