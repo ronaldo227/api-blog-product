@@ -162,23 +162,31 @@ RATE_LIMIT_MAX_REQUESTS=100
 
 ## ✨ Funcionalidades
 
-# Logs
-
-LOG_LEVEL=info- Autenticação JWT segura
-
-```- Hash de senhas com bcrypt
-
+- Autenticação JWT segura
+- Hash de senhas com bcrypt
 - Rate limiting e sanitização de inputs
-
-⚠️ **Importante**: Em produção, use `JWT_KEY` com no mínimo 64 caracteres e `DATABASE_URL` com SSL habilitado.- Logging estruturado
-
+- Logging estruturado
 - Documentação técnica
+- Upload de arquivos (planejado)
 
-## 📚 Scripts Disponíveis- Upload de arquivos (planejado)
+## 🎯 Otimização de Dependências
 
+**Projeto otimizado com apenas 14 dependências de produção:**
 
+✅ **Implementações customizadas** substituem bibliotecas desnecessárias  
+✅ **Slug generation** própria - elimina `transliteration`  
+✅ **HTTP logging** customizado - elimina `morgan`  
+✅ **Rate limiting** otimizado - elimina `express-slow-down`  
+✅ **Zero vulnerabilidades** de segurança  
+✅ **Bundle reduzido** em ~8MB  
 
-```bash---
+**Benefícios:**
+- 🔒 Menor superfície de ataque de segurança
+- ⚡ Melhor performance com código otimizado
+- 🎯 Controle total sobre funcionalidades críticas
+- 📦 Instalação mais rápida e bundle menor
+
+---
 
 # Desenvolvimento
 

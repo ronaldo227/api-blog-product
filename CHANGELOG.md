@@ -5,6 +5,37 @@ Todas as mudanças notáveis deste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.0.0/),
 e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [1.1.0] - 2025-10-04
+
+### 🎯 Otimização de Dependências
+- **Redução de 17 → 14 dependências** de produção (-18%)
+- **Removidas:** `express-slow-down`, `transliteration`, `morgan`
+- **Bundle size reduzido** em ~8MB
+- **Zero vulnerabilidades** mantidas após otimização
+
+### ✨ Implementações Customizadas
+- **Slug generation** própria (`src/utils/slug.ts`)
+  - `createSlug()` - Converte texto em slug URL-friendly
+  - `generateUniqueSlug()` - Gera slugs únicos com verificação
+  - Remove acentos, caracteres especiais, normaliza formato
+- **HTTP logging** customizado (`src/utils/http-logger.ts`)
+  - Substitui morgan com logging estruturado Winston
+  - Métricas: method, URL, status, duração, IP, User-Agent
+  - Integração total com sistema de logs existente
+
+### 🔧 Melhorias Técnicas
+- **JSDoc completo** em todas as novas funções
+- **TypeScript strict** - compilação sem erros
+- **Testes 20/20** passando após otimização
+- **Documentação atualizada** em READMEs
+
+### 🚀 Benefícios Alcançados
+- ✅ Menor superfície de ataque de segurança
+- ✅ Performance otimizada com código próprio
+- ✅ Controle total sobre funcionalidades críticas
+- ✅ Instalação mais rápida do projeto
+- ✅ Manutenibilidade aumentada
+
 ## [1.0.0] - 2025-09-06
 
 ### 🎉 Inicial

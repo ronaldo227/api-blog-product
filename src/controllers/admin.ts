@@ -33,7 +33,7 @@ export const addPost = async (req: ExtendedRequest, res: Response) => {
         cover = req.file.filename;
     }
 
-    // Gerar slug único
+    // Gerar slug único usando implementação customizada (substitui transliteration)
     const checkSlugExists = async (slug: string) => {
         const post = await prisma.post.findUnique({ where: { slug } });
         return !!post;

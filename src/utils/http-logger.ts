@@ -1,7 +1,30 @@
 import { Request, Response, NextFunction } from 'express';
 import { Logger } from './logger';
 
-// Middleware de logging HTTP próprio (substitui Morgan)
+/**
+ * Middleware de logging HTTP customizado
+ * 
+ * Implementação própria que substitui a dependência `morgan`.
+ * Registra informações detalhadas sobre cada requisição HTTP incluindo:
+ * - Método e URL da requisição
+ * - Status code da resposta
+ * - Tempo de processamento
+ * - Tamanho do conteúdo
+ * - User Agent e IP do cliente
+ * 
+ * @param req - Objeto Request do Express
+ * @param res - Objeto Response do Express  
+ * @param next - Função NextFunction para continuar o pipeline
+ * 
+ * @example
+ * ```typescript
+ * // Uso no server.ts
+ * app.use(httpLogger);
+ * 
+ * // Log gerado:
+ * // info: [http] Request processed {"method":"GET","url":"/api/posts","status":200,"duration":"45ms",...}
+ * ```
+ */
 export const httpLogger = (req: Request, res: Response, next: NextFunction) => {
   const start = Date.now();
   

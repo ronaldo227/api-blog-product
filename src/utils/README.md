@@ -512,9 +512,72 @@ logger.info('Post created', {
 
 ---
 
+## 🆕 Implementações Customizadas
+
+### `slug.ts` - Geração de Slugs (substitui transliteration)
+
+**Funções:**
+- `createSlug(text)` - Converte texto em slug URL-friendly
+- `generateUniqueSlug(title, checkExists)` - Gera slug único com verificação
+
+```typescript
+// Uso básico
+import { createSlug, generateUniqueSlug } from '@/utils/slug';
+
+const slug = createSlug("Título com Acentos!"); // "titulo-com-acentos"
+
+// Slug único com verificação no banco
+const uniqueSlug = await generateUniqueSlug("Meu Post", async (slug) => {
+  return await prisma.post.findUnique({ where: { slug } }) !== null;
+});
+```
+
+**Características:**
+- Remove acentos e caracteres especiais
+- Converte espaços em hífens
+- Adiciona sufixo numérico para duplicatas
+- Zero dependências externas
+
+### `http-logger.ts` - Logging HTTP (substitui morgan)
+
+Middleware customizado que registra informações de requisições HTTP:
+
+```typescript
+import { httpLogger } from '@/utils/http-logger';
+
+app.use(httpLogger); // Aplica logging a todas as rotas
+```
+
+**Logs Gerados:**
+```json
+{
+  "level": "info",
+  "context": "http",
+  "message": "Request processed",
+  "meta": {
+    "method": "GET",
+    "url": "/api/posts",
+    "status": 200,
+    "duration": "45ms",
+    "contentLength": 1024,
+    "userAgent": "Mozilla/5.0...",
+    "ip": "127.0.0.1"
+  }
+}
+```
+
+**Vantagens:**
+- Integração total com logger Winston existente
+- Formato estruturado para análise
+- Performance otimizada
+- Sem dependências externas
+
+---
+
 ## 🔗 Referências
 
 - [Winston Logger](https://github.com/winstonjs/winston)
 - [Sharp Image Processing](https://sharp.pixelplumbing.com/)
 - [HTTP Status Codes](https://httpstatuses.com/)
 - [EXIF Security Risks](https://en.wikipedia.org/wiki/Exif#Privacy_and_security)
+- [URL Slug Best Practices](https://developer.mozilla.org/en-US/docs/Glossary/Slug)
