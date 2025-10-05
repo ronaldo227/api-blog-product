@@ -32,10 +32,13 @@ import { buildHealthPayload } from '@/services/health';
 /**
  * Servidor API enterprise-level com arquitetura em camadas
  * 
- * Pipeline de requisição:
- * Trust Proxy → Request ID → Compression → CORS → Helmet → 
- * HTTP Logger → Rate Limiting → Body Parser → Sanitização → 
- * Routes → Error Handler
+ * Pipeline de Requisição (Ordem de Execução):
+ * Trust Proxy → Request ID → Compression → HTTP Logger → Helmet → 
+ * CORS → Rate Limiting → JSON Parser → URL Parser → Sanitização → 
+ * Static Files → Routes → Controllers → Services → Database → Error Handler
+ * 
+ * Cada middleware tem responsabilidade específica na cadeia de processamento,
+ * garantindo segurança, performance e observabilidade enterprise.
  */
 class APIServer {
     private app: Application;

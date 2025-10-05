@@ -28,6 +28,17 @@ import { authRoutes } from './src/routes/auth';
 import { adminRoutes } from './src/routes/admin';
 import { mainRoutes } from './src/routes/main';
 
+/**
+ * Servidor API moderno com arquitetura enterprise
+ * 
+ * Pipeline de Middleware (Ordem de Execução):
+ * Trust Proxy → Request ID → Compression → Morgan Logger → Helmet → 
+ * CORS → Rate Limiting → JSON Parser → URL Parser → Sanitização → 
+ * Static Files → Routes → Controllers → Services → Database → Error Handler
+ * 
+ * Implementa padrões de segurança OWASP, observabilidade e performance
+ * otimizada para ambientes de produção e desenvolvimento.
+ */
 class APIServer {
     private app: Application;
     private port: number;
