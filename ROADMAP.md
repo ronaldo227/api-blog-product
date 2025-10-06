@@ -125,7 +125,6 @@ Este roadmap define a evolução do projeto API Blog Product, mantendo o foco em
 
 - 📧 **Issues**: [GitHub Issues](https://github.com/ronaldo227/api-blog-product/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/ronaldo227/api-blog-product/discussions)
-- **Sponsor**: [Apoie o projeto](https://www.paypal.com/donate/?hosted_button_id=46WJBAZ2X4X6L)
 
 ---
 
